@@ -11,20 +11,17 @@ class DetailViewController: UIViewController  {
     
     // MARK: - Properties
     
-    var recipeUrl: String = ""
     var selectedImage: String?
     var recipeIndexPath: Int?
-    var ingredients: String?
-    var longListIngredients: [String]?
     var isFavourited: Bool!
     var searchResponse: Bool!
     
     var recipeService = [Hit]()
+    private var coreDataManager: CoreDataManager?
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var getDirectionsButton: UIButton!
     @IBOutlet var btnFavourite: UIButton!
-    private var coreDataManager: CoreDataManager?
     
     // MARK: - Methods
 
@@ -99,12 +96,9 @@ class DetailViewController: UIViewController  {
             print(6)
             updateRighBarButton(isFavourite: false)
             coreDataManager?.deleteOneTask(recipe: title ?? "recette")
+            let vc = (storyboard?.instantiateViewController(withIdentifier: "Favorite") as? FavoriteTableViewController)!
+            navigationController?.pushViewController(vc, animated: true)
             isFavourited = false
-        } else  if !searchResponse && !isFavourited {
-            print(7)
-            updateRighBarButton(isFavourite: true)
-           // addFavouriteFromRecipeService()
-            isFavourited = true
         }
     }
 
@@ -114,26 +108,28 @@ class DetailViewController: UIViewController  {
         let stringTime = String(time)
         let calories = recipeService[recipeIndexPath!].recipe.calories
         let stringCalories = String(calories)
-        
-       // let shortListOfIngredients = recipeService[recipeIndexPath!].recipe.ingredients
-//        print("ya")
-//        print(shortListOfIngredients)
-      //  var array = ["a","b","c"]
-        guard let shortListOfIngredients = ingredients else { return }
-        let stringArray = (longListIngredients?.joined(separator: "::"))!
         let image = recipeService[recipeIndexPath!].recipe.image
+        let url = recipeService[recipeIndexPath!].recipe.url
         
-        coreDataManager?.createTask(name: name, time: stringTime, calories: stringCalories, ingredients: shortListOfIngredients, image: image, ingredientsDetail: stringArray)
+        var listOfIngredients: [String] = []
+        var longListOfIngredients: [String] = []
+        for ingredients in recipeService[recipeIndexPath!].recipe.ingredients {
+            listOfIngredients.append(ingredients.food)
+            longListOfIngredients.append(ingredients.text)
+        }
+        
+        coreDataManager?.createTask(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
 
-    func unfavourite() {
-        //do your unfavourite logic
-    }
-
-    /// Open on Safari website instructions
+    /// Open on Safari, website instructions
     @IBAction func getDirectionsButton(_ sender: Any) {
+        var recipeUrl: String = ""
         guard let index = recipeIndexPath else { return }
-        recipeUrl = recipeService[index].recipe.url
+        if searchResponse {
+            recipeUrl = recipeService[index].recipe.url
+        } else {
+            recipeUrl = (coreDataManager?.tasks[index].url)!
+        }
         if let url = URL(string: recipeUrl) {
             UIApplication.shared.open(url)
         }
@@ -145,22 +141,20 @@ class DetailViewController: UIViewController  {
 extension DetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let index = recipeIndexPath
         if searchResponse {
-            return recipeService[index!].recipe.ingredients.count
+            return recipeService[recipeIndexPath!].recipe.ingredients.count
         } else {
-            return longListIngredients!.count
+            return (coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?.count)!
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath)
         if searchResponse {
-            let index = recipeIndexPath
-            cell.textLabel?.text = ". " + recipeService[index!].recipe.ingredients[indexPath.row].text
+            cell.textLabel?.text = ". " + recipeService[recipeIndexPath!].recipe.ingredients[indexPath.row].text
             return cell
         } else {
-            cell.textLabel?.text = longListIngredients?[indexPath.row]
+            cell.textLabel?.text = coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?[indexPath.row]
             return cell
         }
     }

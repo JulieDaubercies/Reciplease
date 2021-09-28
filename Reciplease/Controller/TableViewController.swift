@@ -50,18 +50,6 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = (storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController)!
         vc.selectedImage = hits[indexPath.row].recipe.image
-        
-        //
-        var listOfIngredients: String = ""
-        var longListOfIngredients: [String] = []
-        for ingredients in hits[indexPath.row].recipe.ingredients {
-            listOfIngredients = listOfIngredients + ingredients.food + ","
-            longListOfIngredients.append(ingredients.text)
-        }
-        let ingredients = "\(listOfIngredients)"
-        vc.ingredients = ingredients
-        vc.longListIngredients = longListOfIngredients
-        //
         vc.recipeIndexPath = indexPath.row
         vc.recipeService = hits
         vc.searchResponse = true

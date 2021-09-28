@@ -3,12 +3,13 @@
     <entity name="FavoriteRecipe" representedClassName=".FavoriteRecipe" syncable="YES" codeGenerationType="class">
         <attribute name="calories" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
-        <attribute name="ingredients" optional="YES" attributeType="String"/>
-        <attribute name="ingredientsDetail" optional="YES" attributeType="String"/>
+        <attribute name="ingredients" optional="YES" attributeType="Transformable" customClassName=".[String]"/>
+        <attribute name="ingredientsDetail" optional="YES" attributeType="Transformable" customClassName=".[String]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FavoriteRecipe" positionX="-45" positionY="0" width="128" height="119"/>
+        <element name="FavoriteRecipe" positionX="-45" positionY="0" width="128" height="134"/>
     </elements>
 </model>

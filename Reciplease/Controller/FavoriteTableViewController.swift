@@ -46,7 +46,7 @@ class FavoriteTableViewController: UITableViewController {
         cell.recipeLabel.text = data?.name
         cell.caloriesLabel.text = data?.calories
         cell.timeLabel.text = data?.time
-        cell.ingredientsLabel.text = data?.ingredients
+        cell.ingredientsLabel.text = data?.ingredients?.joined(separator: ",")
         let recipeImageView = cell.recipeImage
         let stringImage = URL(string: data?.image ?? "bla")!
         recipeImageView?.load(url: stringImage)
@@ -61,11 +61,9 @@ class FavoriteTableViewController: UITableViewController {
         let vc = (storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController)!
         let data = coreDataManager?.tasks[indexPath.row]
         vc.selectedImage = data?.image
-        let stringIngredientsDetail = data?.ingredientsDetail
-        let array = stringIngredientsDetail?.components(separatedBy: "::")
-        vc.longListIngredients = array
         vc.recipeIndexPath = indexPath.row
         vc.searchResponse = false
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+
