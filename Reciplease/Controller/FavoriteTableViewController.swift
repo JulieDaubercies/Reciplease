@@ -66,7 +66,6 @@ class FavoriteTableViewController: UITableViewController {
         vc.longListIngredients = array
         vc.recipeIndexPath = indexPath.row
         vc.searchResponse = false
-        vc.recipeName = data?.name
         navigationController?.pushViewController(vc, animated: true)
     }
 }

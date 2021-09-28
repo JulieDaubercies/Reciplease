@@ -16,7 +16,6 @@ class DetailViewController: UIViewController  {
     var recipeIndexPath: Int?
     var ingredients: String?
     var longListIngredients: [String]?
-    var recipeName: String?
     var isFavourited: Bool!
     var searchResponse: Bool!
     
@@ -42,14 +41,13 @@ class DetailViewController: UIViewController  {
         if let imageToLoad = selectedImage?.data {
             recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
         }
-        //title()
-        title = recipeName 
+        title()
         controlFavoriteStatus()
     }
 
     func title() {
         if searchResponse {
-            title = recipeService[0].recipe.label
+            title = recipeService[recipeIndexPath!].recipe.label
         } else {
             title = coreDataManager?.tasks[recipeIndexPath!].name
         }
@@ -111,7 +109,7 @@ class DetailViewController: UIViewController  {
     }
 
     func addFavouriteFromRecipeService() {
-        let name = recipeService[0].recipe.label
+        guard let name = title else { return }
         let time = recipeService[recipeIndexPath!].recipe.totalTime
         let stringTime = String(time)
         let calories = recipeService[recipeIndexPath!].recipe.calories

@@ -62,7 +62,6 @@ class TableViewController: UITableViewController {
         vc.ingredients = ingredients
         vc.longListIngredients = longListOfIngredients
         //
-        vc.recipeName = hits[indexPath.row].recipe.label
         vc.recipeIndexPath = indexPath.row
         vc.recipeService = hits
         vc.searchResponse = true
