@@ -20,7 +20,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var tableView: UITableView!
     var recipeService = RecipeService()
     var arrayOfIngredients: [String] = []
-    var list: String = ""
     
     private let presentingIndicatorTypes = {
         return NVActivityIndicatorType.allCases.filter { $0 != .blank }

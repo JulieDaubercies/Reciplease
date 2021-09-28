@@ -2,9 +2,9 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavoriteRecipe" representedClassName=".FavoriteRecipe" syncable="YES" codeGenerationType="class">
         <attribute name="calories" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="String"/>
-        <attribute name="ingredients" optional="YES" attributeType="Transformable" customClassName=".[String]"/>
-        <attribute name="ingredientsDetail" optional="YES" attributeType="Transformable" customClassName=".[String]"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="ingredients" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[String]"/>
+        <attribute name="ingredientsDetail" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[String]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>

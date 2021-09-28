@@ -55,6 +55,8 @@ class CustomTableViewCell: UITableViewCell {
         }
     }
     
+    
+    
     func configure(image: String) {
         let recipeImageView = recipeImage
         let stringImage = URL(string: image)!

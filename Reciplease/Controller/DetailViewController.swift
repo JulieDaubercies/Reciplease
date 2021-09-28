@@ -35,13 +35,23 @@ class DetailViewController: UIViewController  {
         getDirectionsButton.applyGradient(colours: [.systemYellow, .systemPink])
         tableView.dataSource = self
 
-        if let imageToLoad = selectedImage?.data {
-            recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
-        }
+        loadImage()
         title()
         controlFavoriteStatus()
     }
 
+    func loadImage() {
+        if searchResponse {
+            if let imageToLoad = selectedImage?.data {
+                recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
+            }
+        } else {
+            if let imageToLoad = coreDataManager?.tasks[recipeIndexPath!].image {
+                recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
+            }
+        }
+    }
+    
     func title() {
         if searchResponse {
             title = recipeService[recipeIndexPath!].recipe.label
@@ -61,7 +71,6 @@ class DetailViewController: UIViewController  {
             updateRighBarButton(isFavourite: false)
             isFavourited = false
         }
-        
         if searchResponse { // mode recherche mais déjà recette en favori = étoile pleine
             print(3)
             if coreDataManager?.controlFavorite(recipe: title ?? "recette") == true {
@@ -69,7 +78,6 @@ class DetailViewController: UIViewController  {
                 isFavourited = true
             }
         }
-        
         btnFavourite.tintColor = .yellow
     }
     
@@ -85,7 +93,7 @@ class DetailViewController: UIViewController  {
         if searchResponse && !isFavourited {
             print(4)
             updateRighBarButton(isFavourite: true)
-            addFavouriteFromRecipeService()
+            addFavourite()
             isFavourited = true
         } else  if searchResponse && isFavourited {
             print(5)
@@ -98,17 +106,19 @@ class DetailViewController: UIViewController  {
             coreDataManager?.deleteOneTask(recipe: title ?? "recette")
             let vc = (storyboard?.instantiateViewController(withIdentifier: "Favorite") as? FavoriteTableViewController)!
             navigationController?.pushViewController(vc, animated: true)
-            isFavourited = false
+            isFavourited = false  // à garder ??
+            // si le détail view controller est toujours visible sur la partie recherche, il faut que l'étoile apparaissent creuse
         }
     }
 
-    func addFavouriteFromRecipeService() {
+    func addFavourite() {
         guard let name = title else { return }
         let time = recipeService[recipeIndexPath!].recipe.totalTime
         let stringTime = String(time)
         let calories = recipeService[recipeIndexPath!].recipe.calories
         let stringCalories = String(calories)
-        let image = recipeService[recipeIndexPath!].recipe.image
+      //  let image = recipeService[recipeIndexPath!].recipe.image
+        let image = (selectedImage?.data)!
         let url = recipeService[recipeIndexPath!].recipe.url
         
         var listOfIngredients: [String] = []
@@ -117,7 +127,6 @@ class DetailViewController: UIViewController  {
             listOfIngredients.append(ingredients.food)
             longListOfIngredients.append(ingredients.text)
         }
-        
         coreDataManager?.createTask(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
 
@@ -154,7 +163,7 @@ extension DetailViewController: UITableViewDataSource {
             cell.textLabel?.text = ". " + recipeService[recipeIndexPath!].recipe.ingredients[indexPath.row].text
             return cell
         } else {
-            cell.textLabel?.text = coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?[indexPath.row]
+            cell.textLabel?.text = ". " + (coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?[indexPath.row])!
             return cell
         }
     }

@@ -47,9 +47,10 @@ class FavoriteTableViewController: UITableViewController {
         cell.caloriesLabel.text = data?.calories
         cell.timeLabel.text = data?.time
         cell.ingredientsLabel.text = data?.ingredients?.joined(separator: ",")
-        let recipeImageView = cell.recipeImage
-        let stringImage = URL(string: data?.image ?? "bla")!
-        recipeImageView?.load(url: stringImage)
+        cell.recipeImage.image = UIImage(data: (data?.image)!)
+       // let recipeImageView = cell.recipeImage
+      //  let stringImage = URL(string: data?.image ?? "bla")!
+     //   recipeImageView?.load(url: stringImage)
         return cell
     }
     
@@ -59,8 +60,6 @@ class FavoriteTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = (storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController)!
-        let data = coreDataManager?.tasks[indexPath.row]
-        vc.selectedImage = data?.image
         vc.recipeIndexPath = indexPath.row
         vc.searchResponse = false
         navigationController?.pushViewController(vc, animated: true)

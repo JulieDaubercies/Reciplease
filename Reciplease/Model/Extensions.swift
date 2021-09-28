@@ -86,7 +86,6 @@ extension UIView {
 
 extension UIImageView {
     func load(url: URL) {
-       // DispatchQueue.main.async { [weak self] in
         DispatchQueue.global().async { [weak self] in
             if let data = try? Data(contentsOf: url) {
                 if let image = UIImage(data: data) {
