@@ -48,9 +48,6 @@ class FavoriteTableViewController: UITableViewController {
         cell.timeLabel.text = data?.time
         cell.ingredientsLabel.text = data?.ingredients?.joined(separator: ",")
         cell.recipeImage.image = UIImage(data: (data?.image)!)
-       // let recipeImageView = cell.recipeImage
-      //  let stringImage = URL(string: data?.image ?? "bla")!
-     //   recipeImageView?.load(url: stringImage)
         return cell
     }
     
@@ -64,5 +61,20 @@ class FavoriteTableViewController: UITableViewController {
         vc.searchResponse = false
         navigationController?.pushViewController(vc, animated: true)
     }
-}
 
+
+// MARK: - UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No more recipe on favorite"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        return label
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return coreDataManager?.tasks.isEmpty ?? true ? 200 : 0
+    }
+}

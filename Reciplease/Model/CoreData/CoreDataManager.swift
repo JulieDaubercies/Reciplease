@@ -39,22 +39,17 @@ final class CoreDataManager {
         task.image = image
         task.ingredientsDetail = ingredientsDetail
         task.url = url
-        
-
-        
         coreDataStack.saveContext()
     }
     
     func deleteOneTask(recipe: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
-//        let predicate = NSPredicate(format: recipe)
-//        fetchRequest.predicate = predicate
+        let predicate = NSPredicate(format: "name == '\(recipe)'")
+        fetchRequest.predicate = predicate
         let result = try? managedObjectContext.fetch(fetchRequest)
         let resultData = result as! [FavoriteRecipe]
         for object in resultData {
-            if object.name == recipe {
-                managedObjectContext.delete(object)
-            }
+            managedObjectContext.delete(object)
         }
         do {
             try managedObjectContext.save()
@@ -63,19 +58,16 @@ final class CoreDataManager {
             print("Could not save \(error), \(error.userInfo)")
         }
     }
-    
+
     func controlFavorite(recipe: String) -> Bool {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
-        // predicate
+        let predicate = NSPredicate(format: "name == '\(recipe)'")
+        fetchRequest.predicate = predicate
         let result = try? managedObjectContext.fetch(fetchRequest)
         let resultData = result as! [FavoriteRecipe]
-        for object in resultData {
-            if object.name == recipe {
-                return true
-            }
+        for _ in resultData {
+            return true
         }
         return false
     }
-
 }
-

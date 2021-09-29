@@ -60,14 +60,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             // message d'erreur ??
         } else {
             startAnimation()
-            recipeService.fetchRequest(ingredients: arrayOfIngredients.joined(separator: ",")) { [weak self] result in
+            recipeService.fetchRequest(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
                 DispatchQueue.main.async { [self] in
                     switch result {
                     case .success(let recipe) :
                         if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
                             vc.hits = recipe.hits
+                            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
                             self?.navigationController?.pushViewController(vc, animated: true)
                         }
+                        
                     case .failure(let error):
                         print(error)
                     }

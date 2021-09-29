@@ -11,7 +11,6 @@ class DetailViewController: UIViewController  {
     
     // MARK: - Properties
     
-    var selectedImage: String?
     var recipeIndexPath: Int?
     var isFavourited: Bool!
     var searchResponse: Bool!
@@ -21,7 +20,7 @@ class DetailViewController: UIViewController  {
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var getDirectionsButton: UIButton!
-    @IBOutlet var btnFavourite: UIButton!
+    @IBOutlet var favoriteButton: UIButton!
     
     // MARK: - Methods
 
@@ -36,13 +35,13 @@ class DetailViewController: UIViewController  {
         tableView.dataSource = self
 
         loadImage()
-        title()
+        loadTitle()
         controlFavoriteStatus()
     }
 
     func loadImage() {
         if searchResponse {
-            if let imageToLoad = selectedImage?.data {
+            if let imageToLoad =  recipeService[recipeIndexPath!].recipe.image.data {
                 recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
             }
         } else {
@@ -52,7 +51,7 @@ class DetailViewController: UIViewController  {
         }
     }
     
-    func title() {
+    func loadTitle() {
         if searchResponse {
             title = recipeService[recipeIndexPath!].recipe.label
         } else {
@@ -64,45 +63,45 @@ class DetailViewController: UIViewController  {
     func controlFavoriteStatus() {
         if !searchResponse {  // en mode favori = étoile pleine
             print(1)
-            updateRighBarButton(isFavourite: true)
+            updateFavoriteButton(isFavourite: true)
             isFavourited = true
         } else {  // mode recherche par défaut les étoiles sont creuses
             print(2)
-            updateRighBarButton(isFavourite: false)
+            updateFavoriteButton(isFavourite: false)
             isFavourited = false
         }
         if searchResponse { // mode recherche mais déjà recette en favori = étoile pleine
             print(3)
             if coreDataManager?.controlFavorite(recipe: title ?? "recette") == true {
-                updateRighBarButton(isFavourite: true)
+                updateFavoriteButton(isFavourite: true)
                 isFavourited = true
             }
         }
-        btnFavourite.tintColor = .yellow
+        favoriteButton.tintColor = .yellow
     }
     
-    func updateRighBarButton(isFavourite : Bool){
+    func updateFavoriteButton(isFavourite : Bool){
         if isFavourite {
-            btnFavourite.setImage(.init(systemName: "star.fill"), for: .normal)
+            favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)
         } else {
-            btnFavourite.setImage(.init(systemName: "star"), for: .normal)
+            favoriteButton.setImage(.init(systemName: "star"), for: .normal)
         }
     }
 
-    @IBAction func btnFavouriteDidTap(_ sender: Any) {
+    @IBAction func favouriteButtonDidTap(_ sender: Any) {
         if searchResponse && !isFavourited {
             print(4)
-            updateRighBarButton(isFavourite: true)
+            updateFavoriteButton(isFavourite: true)
             addFavourite()
             isFavourited = true
         } else  if searchResponse && isFavourited {
             print(5)
-            updateRighBarButton(isFavourite: false)
+            updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneTask(recipe: title ?? "recette")
             isFavourited = false
         } else  if !searchResponse && isFavourited {
             print(6)
-            updateRighBarButton(isFavourite: false)
+            updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneTask(recipe: title ?? "recette")
             let vc = (storyboard?.instantiateViewController(withIdentifier: "Favorite") as? FavoriteTableViewController)!
             navigationController?.pushViewController(vc, animated: true)
@@ -117,8 +116,7 @@ class DetailViewController: UIViewController  {
         let stringTime = String(time)
         let calories = recipeService[recipeIndexPath!].recipe.calories
         let stringCalories = String(calories)
-      //  let image = recipeService[recipeIndexPath!].recipe.image
-        let image = (selectedImage?.data)!
+        let image = (recipeService[recipeIndexPath!].recipe.image.data)!
         let url = recipeService[recipeIndexPath!].recipe.url
         
         var listOfIngredients: [String] = []
@@ -129,6 +127,7 @@ class DetailViewController: UIViewController  {
         }
         coreDataManager?.createTask(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
+    
 
     /// Open on Safari, website instructions
     @IBAction func getDirectionsButton(_ sender: Any) {
