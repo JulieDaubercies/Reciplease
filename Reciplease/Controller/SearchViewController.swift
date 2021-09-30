@@ -18,9 +18,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var clearButton: UIButton!
     @IBOutlet var searchButton: UIButton!
     @IBOutlet var tableView: UITableView!
-    var recipeService = RecipeService()
-    var arrayOfIngredients: [String] = []
-    
+    private var recipeService = RecipeService()
+    private var arrayOfIngredients: [String] = []
     private let presentingIndicatorTypes = {
         return NVActivityIndicatorType.allCases.filter { $0 != .blank }
     }()
@@ -40,7 +39,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         ingredientTextField.placeholder = "Carrot"
     }
     
-    @IBAction func tappedAddButton(_ sender: Any) {
+    @IBAction private func AddButton(_ sender: Any) {
         // faire un guard let
         if ingredientTextField.text?.isBlank == true {
             // message d'erreur ??
@@ -50,35 +49,56 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    @IBAction func clearButton(_ sender: Any) {
+    @IBAction private func clearButton(_ sender: Any) {
         arrayOfIngredients.removeAll()
         tableView.reloadData()
     }
     
-    @IBAction func searchButton(_ sender: UIButton) {
+    @IBAction private func searchButton(_ sender: UIButton) {
         if arrayOfIngredients.isEmpty {
             // message d'erreur ??
         } else {
             startAnimation()
-            recipeService.fetchRequest(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
+            
+            recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
                 DispatchQueue.main.async { [self] in
                     switch result {
-                    case .success(let recipe) :
+                    case .success(let recipe):
                         if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
                             vc.hits = recipe.hits
                             vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
                             self?.navigationController?.pushViewController(vc, animated: true)
                         }
-                        
                     case .failure(let error):
                         print(error)
                     }
                 }
             }
+            
+            
+            
+//            recipeService.fetchRequest(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
+//                DispatchQueue.main.async { [self] in
+//                    switch result {
+//                    case .success(let recipe) :
+//                        if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+//                            vc.hits = recipe.hits
+//                            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
+//                            self?.navigationController?.pushViewController(vc, animated: true)
+//                        }
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+//            }
+            
+            
+            
         }
     }
 
-    func startAnimation() {
+    /// Animation during network call
+    private func startAnimation() {
         let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
         loading.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loading)
@@ -97,7 +117,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    @IBAction func dismiss(_ sender: UITapGestureRecognizer) {
+    @IBAction private func dismiss(_ sender: UITapGestureRecognizer) {
         ingredientTextField.resignFirstResponder()
     }
 }

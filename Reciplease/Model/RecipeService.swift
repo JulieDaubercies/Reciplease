@@ -9,24 +9,63 @@
 import Foundation
 import Alamofire
 
+
+enum EdamamError: Error {
+    case noData, invalidResponse, undecodableData
+}
+
 class RecipeService {
 
+    private let session: AlamofireSession
+    
+    init(session: AlamofireSession = EdamamSession()) {
+        self.session = session
+    }
+    
+    
+    func fetchRequests(ingredients: String, to: Int, callback: @escaping (Result<Welcome,EdamamError>)-> Void) {
+        guard let url = URL(string: "https://api.edamam.com/search?") else { return }
+        
+        session.request(ingredients: ingredients, to: to, url: url) { dataResponse in
+            guard let data = dataResponse.data else {
+                callback(.failure(.noData))
+                return
+            }
+            guard dataResponse.response?.statusCode == 200 else {
+                callback(.failure(.invalidResponse))
+                return
+            }
+            guard let dataDecoded = try? JSONDecoder().decode(Welcome.self, from: data) else {
+                callback(.failure(.undecodableData))
+                return
+            }
+            callback(.success(dataDecoded))
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // MARK: - Properties
     
-    var searchList: String?
-    // var url = "https://api.edamam.com/api/recipes/v2?"
-    var url = "https://api.edamam.com/search?"
-    var app_key = "98ee6e62007af9ff9f92549710183fbb"
-    var app_id = "7732ff7c"
-    var image: String!
-    
-    // api de recherche = https://api.edamam.com/search?q=tomato&app_key=98ee6e62007af9ff9f92549710183fbb&app_id=7732ff7c&from=21&to=30
+    private var url = "https://api.edamam.com/search?"
     
     // MARK: - Methods
     
     func fetchRequest(ingredients: String, to: Int, callback: @escaping (Result<Welcome, Error>) -> Void) {
-        //let parameters = ["q" : ingredients, "app_key" : "\(app_key)", "type" : "public", "app_id" : "\(app_id)"]
-        let parameters = ["q" : ingredients, "app_key" : "\(app_key)", "app_id" : "\(app_id)", "to": to] as [String : Any]
+        let parameters = ["q" : ingredients, "app_key" : "\(ApiKey.app_key)", "app_id" : "\(ApiKey.app_id)", "to": to] as [String : Any]
         AF.request(url, method: .get, parameters: parameters).responseJSON { response in
             switch response.result {
             case .success:
@@ -34,7 +73,6 @@ class RecipeService {
                     do {
                         let responseDecoded = try JSONDecoder().decode(Welcome.self, from: data)
                         callback(.success(responseDecoded))
-                        self.image = responseDecoded.hits[0].recipe.image
                     } catch let error as NSError{
                         print(error)
                     }
@@ -44,7 +82,6 @@ class RecipeService {
             }
         }
     }
-    
 }
 
-//        let request = AF.request(RecipeService.url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseDecodable(of: RecipeListResult.self) { response in
+// var url = "https://api.edamam.com/api/recipes/v2?"
