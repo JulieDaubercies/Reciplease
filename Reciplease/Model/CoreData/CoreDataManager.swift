@@ -15,10 +15,10 @@ final class CoreDataManager {
     private let coreDataStack: CoreDataStack
     private let managedObjectContext: NSManagedObjectContext
 
-    var tasks: [FavoriteRecipe] {
+    var favorite: [FavoriteRecipe] {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
-        guard let tasks = try? managedObjectContext.fetch(request) else { return [] }
-        return tasks
+        guard let addFavorite = try? managedObjectContext.fetch(request) else { return [] }
+        return addFavorite
     }
 
     // MARK: - Initializer
@@ -28,21 +28,21 @@ final class CoreDataManager {
         self.managedObjectContext = coreDataStack.mainContext
     }
 
-    // MARK: - Manage Task Entity
+    // MARK: - Manage Favorite Entity
 
-    func createTask(name: String, time: String, calories: String, ingredients: [String], image: Data, ingredientsDetail: [String], url: String) {
-        let task = FavoriteRecipe(context: managedObjectContext)
-        task.name = name
-        task.time = time
-        task.calories = calories
-        task.ingredients = ingredients
-        task.image = image
-        task.ingredientsDetail = ingredientsDetail
-        task.url = url
+    func createFavorite(name: String, time: String, calories: String, ingredients: [String], image: Data, ingredientsDetail: [String], url: String) {
+        let addFavorite = FavoriteRecipe(context: managedObjectContext)
+        addFavorite.name = name
+        addFavorite.time = time
+        addFavorite.calories = calories
+        addFavorite.ingredients = ingredients
+        addFavorite.image = image
+        addFavorite.ingredientsDetail = ingredientsDetail
+        addFavorite.url = url
         coreDataStack.saveContext()
     }
     
-    func deleteOneTask(recipe: String) {
+    func deleteOneFavorite(recipe: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
         let predicate = NSPredicate(format: "name == '\(recipe)'")
         fetchRequest.predicate = predicate

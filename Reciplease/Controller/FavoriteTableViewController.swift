@@ -37,12 +37,12 @@ class FavoriteTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (coreDataManager?.tasks.count)!
+        return (coreDataManager?.favorite.count)!
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
-        let data = coreDataManager?.tasks[indexPath.row]
+        let data = coreDataManager?.favorite[indexPath.row]
         cell.recipeLabel.text = data?.name
         cell.caloriesLabel.text = data?.calories
         cell.timeLabel.text = data?.time
@@ -67,7 +67,7 @@ class FavoriteTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = "No more recipe on favorite"
+        label.text = "Aucun favoris enregistrés"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .darkGray
@@ -75,6 +75,6 @@ class FavoriteTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return coreDataManager?.tasks.isEmpty ?? true ? 200 : 0
+        return coreDataManager?.favorite.isEmpty ?? true ? 200 : 0
     }
 }

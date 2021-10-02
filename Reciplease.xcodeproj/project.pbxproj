@@ -16,8 +16,6 @@
 		3797464C27032901008A3713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3797464B27032901008A3713 /* Assets.xcassets */; };
 		3797464F27032901008A3713 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3797464D27032901008A3713 /* LaunchScreen.storyboard */; };
 		379746612703295F008A3713 /* RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746602703295F008A3713 /* RecipleaseTests.swift */; };
-		3797466A270329F0008A3713 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 37974669270329F0008A3713 /* NVActivityIndicatorView */; };
-		3797466C270329F0008A3713 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 3797466B270329F0008A3713 /* NVActivityIndicatorViewExtended */; };
 		3797466F27032AD4008A3713 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3797466E27032AD4008A3713 /* SDWebImage */; };
 		3797467327032BC8008A3713 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467227032BC8008A3713 /* TableViewController.swift */; };
 		3797467527032BEF008A3713 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467427032BEF008A3713 /* DetailViewController.swift */; };
@@ -34,11 +32,26 @@
 		3797468F2705DBBB008A3713 /* Edamam.json in Resources */ = {isa = PBXBuildFile; fileRef = 3797468E2705DBBB008A3713 /* Edamam.json */; };
 		379746912705DBEF008A3713 /* FakeRecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746902705DBEF008A3713 /* FakeRecipeService.swift */; };
 		379746932705DF88008A3713 /* EdamamSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746922705DF88008A3713 /* EdamamSession.swift */; };
+		3797469F270603C0008A3713 /* CoreDataRecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797469E270603C0008A3713 /* CoreDataRecipleaseTests.swift */; };
+		379746A62706043D008A3713 /* FakeCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746A52706043D008A3713 /* FakeCoreDataStack.swift */; };
+		379746A82706E7DE008A3713 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746A72706E7DE008A3713 /* NetworkError.swift */; };
+		379746AA2706E905008A3713 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746A92706E905008A3713 /* AlertController.swift */; };
+		379746B2270700CB008A3713 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 379746B1270700CB008A3713 /* NVActivityIndicatorView */; };
+		379746B4270700CB008A3713 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 379746B3270700CB008A3713 /* NVActivityIndicatorViewExtended */; };
+		379746B92708EA6F008A3713 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746B72708EA6F008A3713 /* LoadingCell.swift */; };
+		379746BA2708EA6F008A3713 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 379746B82708EA6F008A3713 /* LoadingCell.xib */; };
 		E50BA694BB2F40B9030CE60B /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1DE3F8B01F9134D014DB960 /* Pods_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		379746622703295F008A3713 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3797463427032900008A3713 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3797463B27032900008A3713;
+			remoteInfo = Reciplease;
+		};
+		379746A0270603C0008A3713 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3797463427032900008A3713 /* Project object */;
 			proxyType = 1;
@@ -75,6 +88,13 @@
 		3797468E2705DBBB008A3713 /* Edamam.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Edamam.json; sourceTree = "<group>"; };
 		379746902705DBEF008A3713 /* FakeRecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRecipeService.swift; sourceTree = "<group>"; };
 		379746922705DF88008A3713 /* EdamamSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdamamSession.swift; sourceTree = "<group>"; };
+		3797469C270603C0008A3713 /* CoreDataRecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataRecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3797469E270603C0008A3713 /* CoreDataRecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRecipleaseTests.swift; sourceTree = "<group>"; };
+		379746A52706043D008A3713 /* FakeCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCoreDataStack.swift; sourceTree = "<group>"; };
+		379746A72706E7DE008A3713 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		379746A92706E905008A3713 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		379746B72708EA6F008A3713 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		379746B82708EA6F008A3713 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		AC1911C1BFE945D5C16A4FDD /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		B17116C28B1E69AD6E851FBF /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B804849636543ACD6548F434 /* Pods-RecipleaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipleaseTests.debug.xcconfig"; path = "Target Support Files/Pods-RecipleaseTests/Pods-RecipleaseTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,10 +107,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3797466A270329F0008A3713 /* NVActivityIndicatorView in Frameworks */,
-				3797466C270329F0008A3713 /* NVActivityIndicatorViewExtended in Frameworks */,
 				3797466F27032AD4008A3713 /* SDWebImage in Frameworks */,
+				379746B4270700CB008A3713 /* NVActivityIndicatorViewExtended in Frameworks */,
 				29D9342E9F164A758126B9B9 /* Pods_Reciplease.framework in Frameworks */,
+				379746B2270700CB008A3713 /* NVActivityIndicatorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +122,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		37974699270603C0008A3713 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -110,6 +137,7 @@
 			children = (
 				3797463E27032900008A3713 /* Reciplease */,
 				3797465F2703295F008A3713 /* RecipleaseTests */,
+				3797469D270603C0008A3713 /* CoreDataRecipleaseTests */,
 				3797463D27032900008A3713 /* Products */,
 				4CCBFBD92AB2F022A118B580 /* Pods */,
 				6D258FA1DB15722A4D4A44E6 /* Frameworks */,
@@ -121,6 +149,7 @@
 			children = (
 				3797463C27032900008A3713 /* Reciplease.app */,
 				3797465E2703295F008A3713 /* RecipleaseTests.xctest */,
+				3797469C270603C0008A3713 /* CoreDataRecipleaseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,11 +157,11 @@
 		3797463E27032900008A3713 /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
+				3797465027032901008A3713 /* Info.plist */,
 				379746592703292F008A3713 /* Supporting files */,
 				3797465827032922008A3713 /* View */,
 				3797465627032909008A3713 /* Controller */,
 				3797465727032916008A3713 /* Model */,
-				3797465027032901008A3713 /* Info.plist */,
 			);
 			path = Reciplease;
 			sourceTree = "<group>";
@@ -141,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				3797467827032C28008A3713 /* Cells */,
+				379746A92706E905008A3713 /* AlertController.swift */,
 				3797464327032900008A3713 /* SearchViewController.swift */,
 				3797467227032BC8008A3713 /* TableViewController.swift */,
 				3797467427032BEF008A3713 /* DetailViewController.swift */,
@@ -156,6 +186,7 @@
 				3797467D27032CBF008A3713 /* Extensions.swift */,
 				379746922705DF88008A3713 /* EdamamSession.swift */,
 				3797467F27032CDA008A3713 /* RecipeService.swift */,
+				379746A72706E7DE008A3713 /* NetworkError.swift */,
 				3797468A27059FC1008A3713 /* APIKey.swift */,
 				3797468127032CF0008A3713 /* Recipe.swift */,
 			);
@@ -197,6 +228,8 @@
 			children = (
 				3797467927032C4A008A3713 /* CustomTableViewCell.swift */,
 				3797467A27032C4A008A3713 /* CustomTableViewCell.xib */,
+				379746B72708EA6F008A3713 /* LoadingCell.swift */,
+				379746B82708EA6F008A3713 /* LoadingCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -209,6 +242,15 @@
 				3797468627032D3A008A3713 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3797469D270603C0008A3713 /* CoreDataRecipleaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				3797469E270603C0008A3713 /* CoreDataRecipleaseTests.swift */,
+				379746A52706043D008A3713 /* FakeCoreDataStack.swift */,
+			);
+			path = CoreDataRecipleaseTests;
 			sourceTree = "<group>";
 		};
 		4CCBFBD92AB2F022A118B580 /* Pods */ = {
@@ -250,9 +292,9 @@
 			);
 			name = Reciplease;
 			packageProductDependencies = (
-				37974669270329F0008A3713 /* NVActivityIndicatorView */,
-				3797466B270329F0008A3713 /* NVActivityIndicatorViewExtended */,
 				3797466E27032AD4008A3713 /* SDWebImage */,
+				379746B1270700CB008A3713 /* NVActivityIndicatorView */,
+				379746B3270700CB008A3713 /* NVActivityIndicatorViewExtended */,
 			);
 			productName = Reciplease;
 			productReference = 3797463C27032900008A3713 /* Reciplease.app */;
@@ -277,6 +319,24 @@
 			productReference = 3797465E2703295F008A3713 /* RecipleaseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3797469B270603C0008A3713 /* CoreDataRecipleaseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 379746A2270603C0008A3713 /* Build configuration list for PBXNativeTarget "CoreDataRecipleaseTests" */;
+			buildPhases = (
+				37974698270603C0008A3713 /* Sources */,
+				37974699270603C0008A3713 /* Frameworks */,
+				3797469A270603C0008A3713 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				379746A1270603C0008A3713 /* PBXTargetDependency */,
+			);
+			name = CoreDataRecipleaseTests;
+			productName = CoreDataRecipleaseTests;
+			productReference = 3797469C270603C0008A3713 /* CoreDataRecipleaseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -294,6 +354,10 @@
 						CreatedOnToolsVersion = 13.0;
 						TestTargetID = 3797463B27032900008A3713;
 					};
+					3797469B270603C0008A3713 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 3797463B27032900008A3713;
+					};
 				};
 			};
 			buildConfigurationList = 3797463727032900008A3713 /* Build configuration list for PBXProject "Reciplease" */;
@@ -306,8 +370,8 @@
 			);
 			mainGroup = 3797463327032900008A3713;
 			packageReferences = (
-				37974668270329F0008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 				3797466D27032AD4008A3713 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				379746B0270700CB008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			productRefGroup = 3797463D27032900008A3713 /* Products */;
 			projectDirPath = "";
@@ -315,6 +379,7 @@
 			targets = (
 				3797463B27032900008A3713 /* Reciplease */,
 				3797465D2703295F008A3713 /* RecipleaseTests */,
+				3797469B270603C0008A3713 /* CoreDataRecipleaseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -327,6 +392,7 @@
 				3797464F27032901008A3713 /* LaunchScreen.storyboard in Resources */,
 				3797464C27032901008A3713 /* Assets.xcassets in Resources */,
 				3797467C27032C4A008A3713 /* CustomTableViewCell.xib in Resources */,
+				379746BA2708EA6F008A3713 /* LoadingCell.xib in Resources */,
 				3797464727032900008A3713 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +402,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3797468F2705DBBB008A3713 /* Edamam.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3797469A270603C0008A3713 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,12 +484,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3797464A27032900008A3713 /* Reciplease.xcdatamodeld in Sources */,
+				379746A82706E7DE008A3713 /* NetworkError.swift in Sources */,
 				379746932705DF88008A3713 /* EdamamSession.swift in Sources */,
 				3797467E27032CBF008A3713 /* Extensions.swift in Sources */,
 				3797464427032900008A3713 /* SearchViewController.swift in Sources */,
 				3797468527032D1C008A3713 /* CoreDataStack.swift in Sources */,
+				379746B92708EA6F008A3713 /* LoadingCell.swift in Sources */,
 				3797467B27032C4A008A3713 /* CustomTableViewCell.swift in Sources */,
 				3797464027032900008A3713 /* AppDelegate.swift in Sources */,
+				379746AA2706E905008A3713 /* AlertController.swift in Sources */,
 				3797467527032BEF008A3713 /* DetailViewController.swift in Sources */,
 				3797468727032D3A008A3713 /* CoreDataManager.swift in Sources */,
 				3797468B27059FC1008A3713 /* APIKey.swift in Sources */,
@@ -438,6 +514,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		37974698270603C0008A3713 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				379746A62706043D008A3713 /* FakeCoreDataStack.swift in Sources */,
+				3797469F270603C0008A3713 /* CoreDataRecipleaseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -445,6 +530,11 @@
 			isa = PBXTargetDependency;
 			target = 3797463B27032900008A3713 /* Reciplease */;
 			targetProxy = 379746622703295F008A3713 /* PBXContainerItemProxy */;
+		};
+		379746A1270603C0008A3713 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3797463B27032900008A3713 /* Reciplease */;
+			targetProxy = 379746A0270603C0008A3713 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -690,6 +780,52 @@
 			};
 			name = Release;
 		};
+		379746A3270603C0008A3713 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9F4H6Q36H;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.julieDaubercies.CoreDataRecipleaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/Reciplease";
+			};
+			name = Debug;
+		};
+		379746A4270603C0008A3713 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9F4H6Q36H;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.julieDaubercies.CoreDataRecipleaseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/Reciplease";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -720,17 +856,18 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		379746A2270603C0008A3713 /* Build configuration list for PBXNativeTarget "CoreDataRecipleaseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				379746A3270603C0008A3713 /* Debug */,
+				379746A4270603C0008A3713 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		37974668270329F0008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		3797466D27032AD4008A3713 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -739,23 +876,31 @@
 				kind = branch;
 			};
 		};
+		379746B0270700CB008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		37974669270329F0008A3713 /* NVActivityIndicatorView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 37974668270329F0008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
-			productName = NVActivityIndicatorView;
-		};
-		3797466B270329F0008A3713 /* NVActivityIndicatorViewExtended */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 37974668270329F0008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
-			productName = NVActivityIndicatorViewExtended;
-		};
 		3797466E27032AD4008A3713 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3797466D27032AD4008A3713 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		379746B1270700CB008A3713 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 379746B0270700CB008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		379746B3270700CB008A3713 /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 379746B0270700CB008A3713 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
 		};
 /* End XCSwiftPackageProductDependency section */
 

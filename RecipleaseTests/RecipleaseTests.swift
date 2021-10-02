@@ -6,27 +6,68 @@
 //
 
 import XCTest
+@testable import Reciplease
 
 class RecipleaseTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func testGetData_WhenNoDataIsPassed_ThenShouldReturnFailedCallback() {
+        let session = FakeEdamamSession(fakeResponse: FakeResponse(response: nil, data: nil))
+        let requestService = RecipeService(session: session)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+            guard case .failure(let error) = result else {
+                XCTFail("Test getData method with no data failed.")
+                return
+            }
+            XCTAssertNotNil(error)
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetData_WhenIncorrectResponseIsPassed_ThenShouldReturnFailedCallback() {
+        let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseKO, data: FakeResponseData.correctData))
+        let requestService = RecipeService(session: session)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+            guard case .failure(let error) = result else {
+                XCTFail("Test getData method with incorrect response failed.")
+                return
+            }
+            XCTAssertNotNil(error)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetData_WhenUndecodableDataIsPassed_ThenShouldReturnFailedCallback() {
+        let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.incorrectData))
+        let requestService = RecipeService(session: session)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+            guard case .failure(let error) = result else {
+                XCTFail("Test getData method with undecodable data failed.")
+                return
+            }
+            XCTAssertNotNil(error)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetData_WhenCorrectDataIsPassed_ThenShouldReturnSuccededCallback() {
+        let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData))
+        let requestService = RecipeService(session: session)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+            guard case .success(let data) = result else {
+                XCTFail("Test getData method with correct data failed.")
+                return
+            }
+            XCTAssertTrue(data.hits[0].recipe.label == "Grated Tomato")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
     }
 
 }

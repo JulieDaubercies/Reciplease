@@ -17,7 +17,7 @@
                         <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="ovC-HB-shD">
-                            <rect key="frame" x="0.0" y="167.33333206176758" width="390" height="44"/>
+                            <rect key="frame" x="0.0" y="167.33333206176761" width="390" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </view>
@@ -353,6 +353,12 @@
                                     <outlet property="dataSource" destination="4sE-ji-UzH" id="pLQ-1z-Btf"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" id="kpS-uv-hub">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="safeArea" id="dg0-oV-SCo"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iWb-Ke-fGo"/>
                         <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -384,12 +390,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BT-77-cAf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <view hidden="YES" contentMode="scaleToFill" id="kpS-uv-hub">
-                    <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <viewLayoutGuide key="safeArea" id="dg0-oV-SCo"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
                 <tapGestureRecognizer id="N5J-cz-7cJ">
                     <connections>
                         <action selector="dismiss:" destination="4sE-ji-UzH" id="LLW-YM-UfN"/>
@@ -400,6 +400,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="huY-oN-XQ4"/>
+        <segue reference="e0v-cC-WZh"/>
     </inferredMetricsTieBreakers>
 </document>

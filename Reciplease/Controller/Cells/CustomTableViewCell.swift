@@ -54,13 +54,4 @@ class CustomTableViewCell: UITableViewCell {
             ingredientsLabel.text = "\(listOfIngredients)"
         }
     }
-    
-    
-    
-    func configure(image: String) {
-        let recipeImageView = recipeImage
-        let stringImage = URL(string: image)!
-        recipeImageView?.load(url: stringImage)
-        recipeImage.contentMode = .scaleAspectFill
-    }
 }

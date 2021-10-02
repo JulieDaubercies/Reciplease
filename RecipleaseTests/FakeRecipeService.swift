@@ -14,7 +14,8 @@ struct FakeResponse {
     var data: Data?
 }
 
-final class FakeITunesSession: AlamofireSession {
+final class FakeEdamamSession: AlamofireSession {
+    
 
     // MARK: - Properties
 
@@ -27,8 +28,8 @@ final class FakeITunesSession: AlamofireSession {
     }
 
     // MARK: - Methods
-
-    func request(url: URL, callback: @escaping (AFDataResponse<Any>) -> Void) {
+    
+    func request(ingredients: String, to: Int, url: URL, callback: @escaping (AFDataResponse<Any>) -> Void) {
         let dataResponse = AFDataResponse<Any>(request: nil, response: fakeResponse.response, data: fakeResponse.data, metrics: nil, serializationDuration: 0, result: .success("OK"))
         callback(dataResponse)
     }

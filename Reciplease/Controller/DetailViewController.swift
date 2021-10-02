@@ -12,10 +12,9 @@ class DetailViewController: UIViewController  {
     // MARK: - Properties
     
     var recipeIndexPath: Int?
-    var isFavourited: Bool!
     var searchResponse: Bool!
-    
     var recipeService = [Hit]()
+    private var isFavourited: Bool!
     private var coreDataManager: CoreDataManager?
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -39,38 +38,39 @@ class DetailViewController: UIViewController  {
         controlFavoriteStatus()
     }
 
-    func loadImage() {
+    // utiliser sdwebimage??
+    private func loadImage() {
         if searchResponse {
             if let imageToLoad =  recipeService[recipeIndexPath!].recipe.image.data {
                 recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
             }
         } else {
-            if let imageToLoad = coreDataManager?.tasks[recipeIndexPath!].image {
+            if let imageToLoad = coreDataManager?.favorite[recipeIndexPath!].image {
                 recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
             }
         }
     }
-    
-    func loadTitle() {
+
+    private func loadTitle() {
         if searchResponse {
             title = recipeService[recipeIndexPath!].recipe.label
         } else {
-            title = coreDataManager?.tasks[recipeIndexPath!].name
+            title = coreDataManager?.favorite[recipeIndexPath!].name
         }
         
     }
-    
-    func controlFavoriteStatus() {
-        if !searchResponse {  // en mode favori = étoile pleine
+
+    private func controlFavoriteStatus() {
+        if !searchResponse {
             print(1)
             updateFavoriteButton(isFavourite: true)
             isFavourited = true
-        } else {  // mode recherche par défaut les étoiles sont creuses
+        } else {
             print(2)
             updateFavoriteButton(isFavourite: false)
             isFavourited = false
         }
-        if searchResponse { // mode recherche mais déjà recette en favori = étoile pleine
+        if searchResponse {
             print(3)
             if coreDataManager?.controlFavorite(recipe: title ?? "recette") == true {
                 updateFavoriteButton(isFavourite: true)
@@ -80,7 +80,7 @@ class DetailViewController: UIViewController  {
         favoriteButton.tintColor = .yellow
     }
     
-    func updateFavoriteButton(isFavourite : Bool){
+    private func updateFavoriteButton(isFavourite : Bool){
         if isFavourite {
             favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)
         } else {
@@ -88,7 +88,7 @@ class DetailViewController: UIViewController  {
         }
     }
 
-    @IBAction func favouriteButtonDidTap(_ sender: Any) {
+    @IBAction private func favouriteButtonDidTap(_ sender: Any) {
         if searchResponse && !isFavourited {
             print(4)
             updateFavoriteButton(isFavourite: true)
@@ -97,20 +97,26 @@ class DetailViewController: UIViewController  {
         } else  if searchResponse && isFavourited {
             print(5)
             updateFavoriteButton(isFavourite: false)
-            coreDataManager?.deleteOneTask(recipe: title ?? "recette")
+            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             isFavourited = false
         } else  if !searchResponse && isFavourited {
             print(6)
             updateFavoriteButton(isFavourite: false)
-            coreDataManager?.deleteOneTask(recipe: title ?? "recette")
-            let vc = (storyboard?.instantiateViewController(withIdentifier: "Favorite") as? FavoriteTableViewController)!
-            navigationController?.pushViewController(vc, animated: true)
+            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
+            navigationController?.popViewController(animated: true)
             isFavourited = false  // à garder ??
-            // si le détail view controller est toujours visible sur la partie recherche, il faut que l'étoile apparaissent creuse
+            // si le détail view controller est toujours visible sur la partie recherche, il faut que l'étoile apparaisse vide
+            //
+            //
+            //
+            //
+            //
+            //
+            //
         }
     }
 
-    func addFavourite() {
+    private func addFavourite() {
         guard let name = title else { return }
         let time = recipeService[recipeIndexPath!].recipe.totalTime
         let stringTime = String(time)
@@ -118,25 +124,23 @@ class DetailViewController: UIViewController  {
         let stringCalories = String(calories)
         let image = (recipeService[recipeIndexPath!].recipe.image.data)!
         let url = recipeService[recipeIndexPath!].recipe.url
-        
         var listOfIngredients: [String] = []
         var longListOfIngredients: [String] = []
         for ingredients in recipeService[recipeIndexPath!].recipe.ingredients {
             listOfIngredients.append(ingredients.food)
             longListOfIngredients.append(ingredients.text)
         }
-        coreDataManager?.createTask(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
+        coreDataManager?.createFavorite(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
-    
 
     /// Open on Safari, website instructions
-    @IBAction func getDirectionsButton(_ sender: Any) {
+    @IBAction private func getDirectionsButton(_ sender: Any) {
         var recipeUrl: String = ""
         guard let index = recipeIndexPath else { return }
         if searchResponse {
             recipeUrl = recipeService[index].recipe.url
         } else {
-            recipeUrl = (coreDataManager?.tasks[index].url)!
+            recipeUrl = (coreDataManager?.favorite[index].url)!
         }
         if let url = URL(string: recipeUrl) {
             UIApplication.shared.open(url)
@@ -152,7 +156,7 @@ extension DetailViewController: UITableViewDataSource {
         if searchResponse {
             return recipeService[recipeIndexPath!].recipe.ingredients.count
         } else {
-            return (coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?.count)!
+            return (coreDataManager?.favorite[recipeIndexPath!].ingredientsDetail?.count)!
         }
     }
 
@@ -162,13 +166,12 @@ extension DetailViewController: UITableViewDataSource {
             cell.textLabel?.text = ". " + recipeService[recipeIndexPath!].recipe.ingredients[indexPath.row].text
             return cell
         } else {
-            cell.textLabel?.text = ". " + (coreDataManager?.tasks[recipeIndexPath!].ingredientsDetail?[indexPath.row])!
+            cell.textLabel?.text = ". " + (coreDataManager?.favorite[recipeIndexPath!].ingredientsDetail?[indexPath.row])!
             return cell
         }
     }
 }
 
 //        if searchResponse && isFavourited == false {
-//            print(4)
-//            isFavourited = !isFavourited  // false devient true
+//            isFavourited = !isFavourited
 //        }

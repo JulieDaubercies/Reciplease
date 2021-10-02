@@ -11,6 +11,12 @@ import Foundation
 // MARK: - Welcome
 struct Welcome: Decodable {
     let hits: [Hit]
+    let links: WelcomeLinks
+    
+    enum CodingKeys: String, CodingKey {
+        case links = "_links"
+        case hits
+    }
 }
 
 // MARK: - Hit
@@ -32,4 +38,14 @@ struct Recipe: Decodable {
 struct Ingredient: Decodable {
     let text: String
     let food: String
+}
+
+// MARK: - WelcomeLinks
+struct WelcomeLinks: Decodable {
+    let next: Next
+}
+
+// MARK: - Next
+struct Next: Decodable {
+    let href: String    //nextpage
 }

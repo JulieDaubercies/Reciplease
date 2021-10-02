@@ -54,46 +54,28 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         tableView.reloadData()
     }
     
+    /// Launch network call
     @IBAction private func searchButton(_ sender: UIButton) {
-        if arrayOfIngredients.isEmpty {
-            // message d'erreur ??
-        } else {
-            startAnimation()
-            
-            recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
-                DispatchQueue.main.async { [self] in
-                    switch result {
-                    case .success(let recipe):
-                        if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-                            vc.hits = recipe.hits
-                            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
-                            self?.navigationController?.pushViewController(vc, animated: true)
-                        }
-                    case .failure(let error):
-                        print(error)
+        guard !arrayOfIngredients.isEmpty else {
+            alert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
+            return
+        }
+        startAnimation()
+        guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
+        recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), url : url) { [weak self] result in
+            DispatchQueue.main.async { [self] in
+                switch result {
+                case .success(let recipe):
+                    if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+                        vc.hits = recipe.hits
+                        vc.nextPage = recipe.links.next.href
+                        vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
+                        self?.navigationController?.pushViewController(vc, animated: true)
                     }
+                case .failure(let error):
+                    self?.alert(message: "\(error)")
                 }
             }
-            
-            
-            
-//            recipeService.fetchRequest(ingredients: arrayOfIngredients.joined(separator: ","), to: 20) { [weak self] result in
-//                DispatchQueue.main.async { [self] in
-//                    switch result {
-//                    case .success(let recipe) :
-//                        if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-//                            vc.hits = recipe.hits
-//                            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
-//                            self?.navigationController?.pushViewController(vc, animated: true)
-//                        }
-//                    case .failure(let error):
-//                        print(error)
-//                    }
-//                }
-//            }
-            
-            
-            
         }
     }
 
