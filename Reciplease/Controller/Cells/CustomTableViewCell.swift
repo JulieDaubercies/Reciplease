@@ -10,12 +10,27 @@ import SDWebImage
 
 class CustomTableViewCell: UITableViewCell {
 
+    @IBOutlet var shadowView: UIView!
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var recipeLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var caloriesLabel: UILabel!
     @IBOutlet var viewForTime: UIView!
     @IBOutlet var ingredientsLabel: UILabel!
+    
+    
+    func configure() {
+        shadowView.layer.cornerRadius = 10
+        shadowView.layer.cornerRadius = 10
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        shadowView.layer.shadowRadius = 5
+        shadowView.layer.shadowOpacity = 0.5
+        shadowView.layer.masksToBounds = false
+        
+        recipeImage.contentMode = .scaleAspectFill
+        recipeImage.layer.cornerRadius = 10
+    }
     
     var recipe: Recipe? {
         didSet {
@@ -32,7 +47,8 @@ class CustomTableViewCell: UITableViewCell {
     var calories: Recipe? {
         didSet {
             guard let kcal = calories?.calories else { return }
-            caloriesLabel.text = String(kcal) + "kcal"
+            let calories = Int(kcal)
+            caloriesLabel.text = String(calories) + "kcal"
         }
     }
 
@@ -40,7 +56,6 @@ class CustomTableViewCell: UITableViewCell {
         didSet {
             guard let urlString = picture?.image else { return }
             recipeImage.sd_setImage(with: URL(string: urlString), placeholderImage: UIImage(named: "meal"), options: .continueInBackground, completed: nil)
-            recipeImage.contentMode = .scaleAspectFill
         }
     }
     

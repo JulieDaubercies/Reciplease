@@ -37,7 +37,16 @@ class DetailViewController: UIViewController  {
         loadTitle()
         controlFavoriteStatus()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if navigationController?.tabBarItem.tag == 0 {
+            if coreDataManager?.controlFavorite(recipe: title ?? "recette") == false {
+                  favoriteButton.setImage(.init(systemName: "star"), for: .normal)
+            }
+        }
+    }
 
+    
     // utiliser sdwebimage??
     private func loadImage() {
         if searchResponse {
@@ -57,21 +66,17 @@ class DetailViewController: UIViewController  {
         } else {
             title = coreDataManager?.favorite[recipeIndexPath!].name
         }
-        
     }
 
     private func controlFavoriteStatus() {
         if !searchResponse {
-            print(1)
             updateFavoriteButton(isFavourite: true)
             isFavourited = true
         } else {
-            print(2)
             updateFavoriteButton(isFavourite: false)
             isFavourited = false
         }
         if searchResponse {
-            print(3)
             if coreDataManager?.controlFavorite(recipe: title ?? "recette") == true {
                 updateFavoriteButton(isFavourite: true)
                 isFavourited = true
@@ -90,29 +95,26 @@ class DetailViewController: UIViewController  {
 
     @IBAction private func favouriteButtonDidTap(_ sender: Any) {
         if searchResponse && !isFavourited {
-            print(4)
+           // print(4)
             updateFavoriteButton(isFavourite: true)
             addFavourite()
             isFavourited = true
         } else  if searchResponse && isFavourited {
-            print(5)
+          //  print(5)
             updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             isFavourited = false
         } else  if !searchResponse && isFavourited {
-            print(6)
+         //   print(6)
             updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             navigationController?.popViewController(animated: true)
-            isFavourited = false  // à garder ??
-            // si le détail view controller est toujours visible sur la partie recherche, il faut que l'étoile apparaisse vide
-            //
-            //
-            //
-            //
-            //
-            //
-            //
+            isFavourited = false
+            if navigationController?.tabBarItem.tag == 1 {
+                tabBarController?.selectedIndex = 0
+                    viewWillAppear(true)
+                tabBarController?.selectedIndex = 1
+            }
         }
     }
 
@@ -120,7 +122,7 @@ class DetailViewController: UIViewController  {
         guard let name = title else { return }
         let time = recipeService[recipeIndexPath!].recipe.totalTime
         let stringTime = String(time)
-        let calories = recipeService[recipeIndexPath!].recipe.calories
+        let calories = Int(recipeService[recipeIndexPath!].recipe.calories)
         let stringCalories = String(calories)
         let image = (recipeService[recipeIndexPath!].recipe.image.data)!
         let url = recipeService[recipeIndexPath!].recipe.url

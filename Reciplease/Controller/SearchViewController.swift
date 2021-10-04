@@ -8,7 +8,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class SearchViewController: UIViewController, UITextFieldDelegate {
+class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     
@@ -37,7 +37,10 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         self.searchButton.applyGradient(colours: [.systemYellow, .systemPink])
         self.addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
         ingredientTextField.placeholder = "Carrot"
+        
+        navigationController?.delegate = self
     }
+    
     
     @IBAction private func AddButton(_ sender: Any) {
         // faire un guard let

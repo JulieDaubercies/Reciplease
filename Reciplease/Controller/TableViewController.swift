@@ -19,7 +19,7 @@ class TableViewController: UITableViewController {
     var ingredients: String?
     var nextPage: String?
     var isPaginating = false
-
+    
 //    private var recipe = [Hit]() {
 //        didSet {
 //            DispatchQueue.main.async { [weak self] in
@@ -38,6 +38,9 @@ class TableViewController: UITableViewController {
         tableView.register(UINib.init(nibName: customCellId, bundle: nil), forCellReuseIdentifier: customCellId)
         tableView.register(UINib.init(nibName: loadingCellId, bundle: nil), forCellReuseIdentifier: loadingCellId)
         tableView.separatorColor = UIColor.black
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
     
@@ -49,6 +52,7 @@ class TableViewController: UITableViewController {
         }
     }
     
+    ///Collect link for next page
     func getTheNextPage(link: String) {
         nextPage = link
     }
@@ -63,7 +67,16 @@ class TableViewController: UITableViewController {
                 switch result {
                 case .success(let moreData):
                     self?.hits.append(contentsOf: moreData.hits)
-                    self?.tableView.reloadData()
+                    
+                    UIView.transition(with: (self?.tableView)!,
+                                      duration: 0.40,
+                                      options: .transitionCrossDissolve,
+                                      animations: { () -> Void in
+                        self?.tableView.reloadData()
+                    },
+                                      completion: nil)
+                    
+                    //self?.tableView.reloadData()
                     self?.getTheNextPage(link: moreData.links.next.href)
                     self?.isPaginating = false
                 case .failure(let error):
@@ -72,7 +85,6 @@ class TableViewController: UITableViewController {
             }
         }
     }
-    
 
     // MARK: - Table view data source
 
@@ -99,6 +111,16 @@ class TableViewController: UITableViewController {
             cell.calories = hits[indexPath.row].recipe
             cell.picture = hits[indexPath.row].recipe
             cell.list = hits[indexPath.row].recipe
+            cell.configure()
+            
+            // Smooth effect during scroll
+            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+            cell.layer.transform = rotationTransform
+            cell.alpha = 0
+            UIView.animate(withDuration: 0.75) {
+                cell.layer.transform = CATransform3DIdentity
+                cell.alpha = 1
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellId, for: indexPath) as! LoadingCell
@@ -108,7 +130,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

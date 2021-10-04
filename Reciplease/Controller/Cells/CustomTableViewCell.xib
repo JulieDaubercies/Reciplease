@@ -16,51 +16,53 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meal" translatesAutoresizingMaskIntoConstraints="NO" id="BqH-Iy-IG8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="101"/>
-                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fc6-Jw-gCi">
+                        <rect key="frame" x="6" y="6" width="308" height="92"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meal" translatesAutoresizingMaskIntoConstraints="NO" id="BqH-Iy-IG8">
+                                <rect key="frame" x="3" y="3" width="302" height="86"/>
+                            </imageView>
+                            <stackView opaque="NO" alpha="0.75" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-8j-w8K">
+                                <rect key="frame" x="258" y="10" width="40" height="38.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-N8-75f">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="18"/>
+                                        <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="15"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="-1" height="-1"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="op8-qd-0W0">
+                                        <rect key="frame" x="0.0" y="24" width="40" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="12"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <size key="shadowOffset" width="-1" height="-1"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="BqH-Iy-IG8" secondAttribute="bottom" constant="3" id="1CE-2l-GqM"/>
+                            <constraint firstItem="cSO-8j-w8K" firstAttribute="top" secondItem="fc6-Jw-gCi" secondAttribute="top" constant="10" id="1zP-aI-etz"/>
+                            <constraint firstItem="BqH-Iy-IG8" firstAttribute="top" secondItem="fc6-Jw-gCi" secondAttribute="top" constant="3" id="3f9-Wd-Wg7"/>
+                            <constraint firstAttribute="trailing" secondItem="BqH-Iy-IG8" secondAttribute="trailing" constant="3" id="GIi-9Q-OaA"/>
+                            <constraint firstItem="BqH-Iy-IG8" firstAttribute="leading" secondItem="fc6-Jw-gCi" secondAttribute="leading" constant="3" id="I8R-5K-1Su"/>
+                            <constraint firstAttribute="trailing" secondItem="cSO-8j-w8K" secondAttribute="trailing" constant="10" id="wGg-FD-4En"/>
+                        </constraints>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iC6-yi-HUH">
-                        <rect key="frame" x="10" y="47" width="300" height="27"/>
+                        <rect key="frame" x="12" y="47" width="298" height="27"/>
                         <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="22"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <size key="shadowOffset" width="-1" height="-1"/>
                     </label>
-                    <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NE2-Bf-PMA">
-                        <rect key="frame" x="242" y="10" width="68" height="36"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-N8-75f">
-                                <rect key="frame" x="0.0" y="18" width="68" height="18"/>
-                                <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="15"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="-1" height="-1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="op8-qd-0W0">
-                                <rect key="frame" x="0.0" y="3.5" width="68" height="14.5"/>
-                                <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="12"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="-1" height="-1"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="op8-qd-0W0" firstAttribute="top" secondItem="NE2-Bf-PMA" secondAttribute="top" id="HWS-ih-n6m"/>
-                            <constraint firstAttribute="height" constant="36" id="ItJ-fk-tAr"/>
-                            <constraint firstAttribute="trailing" secondItem="idZ-N8-75f" secondAttribute="trailing" id="Izf-hN-PLt"/>
-                            <constraint firstItem="op8-qd-0W0" firstAttribute="leading" secondItem="NE2-Bf-PMA" secondAttribute="leading" id="Sbh-Sd-4lA"/>
-                            <constraint firstAttribute="width" secondItem="NE2-Bf-PMA" secondAttribute="height" multiplier="17:9" id="Zoi-L2-f44"/>
-                            <constraint firstItem="idZ-N8-75f" firstAttribute="top" secondItem="op8-qd-0W0" secondAttribute="bottom" id="d00-tA-EUp"/>
-                            <constraint firstItem="idZ-N8-75f" firstAttribute="leading" secondItem="NE2-Bf-PMA" secondAttribute="leading" id="e90-7Q-g5S"/>
-                            <constraint firstAttribute="width" constant="68" id="jsy-em-l15"/>
-                            <constraint firstAttribute="trailing" secondItem="op8-qd-0W0" secondAttribute="trailing" id="lcu-EN-lrp"/>
-                            <constraint firstAttribute="bottom" secondItem="idZ-N8-75f" secondAttribute="bottom" id="sUy-OX-ECB"/>
-                        </constraints>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A34-Wl-f5T">
-                        <rect key="frame" x="10" y="80" width="310" height="22"/>
+                        <rect key="frame" x="12" y="80" width="298" height="14"/>
                         <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -68,33 +70,33 @@
                         <size key="shadowOffset" width="-1" height="-1"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="iC6-yi-HUH" secondAttribute="bottom" constant="30" id="2g1-id-keb"/>
-                    <constraint firstItem="iC6-yi-HUH" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" constant="10" id="3yk-3u-4yS"/>
-                    <constraint firstItem="NE2-Bf-PMA" firstAttribute="top" secondItem="Ely-UJ-J6n" secondAttribute="top" constant="10" id="AvU-O1-HBJ"/>
+                    <constraint firstItem="iC6-yi-HUH" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" constant="12" id="3yk-3u-4yS"/>
                     <constraint firstAttribute="trailing" secondItem="iC6-yi-HUH" secondAttribute="trailing" constant="10" id="Ds6-gK-no2"/>
-                    <constraint firstAttribute="bottom" secondItem="BqH-Iy-IG8" secondAttribute="bottom" constant="3" id="EQk-TO-cF0"/>
-                    <constraint firstItem="BqH-Iy-IG8" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" id="Ijr-6m-vB7"/>
-                    <constraint firstAttribute="bottom" secondItem="A34-Wl-f5T" secondAttribute="bottom" constant="2" id="ajA-eK-PbY"/>
-                    <constraint firstAttribute="trailing" secondItem="A34-Wl-f5T" secondAttribute="trailing" id="bAB-aB-DDg"/>
+                    <constraint firstAttribute="bottom" secondItem="fc6-Jw-gCi" secondAttribute="bottom" constant="6" id="SyU-2O-5CB"/>
+                    <constraint firstItem="fc6-Jw-gCi" firstAttribute="top" secondItem="Ely-UJ-J6n" secondAttribute="top" constant="6" id="UVL-5J-5Ma"/>
+                    <constraint firstItem="fc6-Jw-gCi" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" constant="6" id="X1P-Wx-xnX"/>
+                    <constraint firstAttribute="bottom" secondItem="A34-Wl-f5T" secondAttribute="bottom" constant="10" id="ajA-eK-PbY"/>
+                    <constraint firstAttribute="trailing" secondItem="fc6-Jw-gCi" secondAttribute="trailing" constant="6" id="aw4-Jj-BtI"/>
+                    <constraint firstAttribute="trailing" secondItem="A34-Wl-f5T" secondAttribute="trailing" constant="10" id="bAB-aB-DDg"/>
                     <constraint firstItem="A34-Wl-f5T" firstAttribute="top" secondItem="iC6-yi-HUH" secondAttribute="bottom" constant="6" id="bwv-FC-JtA"/>
-                    <constraint firstAttribute="trailing" secondItem="NE2-Bf-PMA" secondAttribute="trailing" constant="10" id="oYB-Iw-uVf"/>
-                    <constraint firstItem="A34-Wl-f5T" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" constant="10" id="s4k-Kt-TmC"/>
-                    <constraint firstItem="BqH-Iy-IG8" firstAttribute="top" secondItem="Ely-UJ-J6n" secondAttribute="top" id="swW-92-DdU"/>
-                    <constraint firstAttribute="trailing" secondItem="BqH-Iy-IG8" secondAttribute="trailing" id="wvM-z7-lpT"/>
+                    <constraint firstItem="A34-Wl-f5T" firstAttribute="leading" secondItem="Ely-UJ-J6n" secondAttribute="leading" constant="12" id="s4k-Kt-TmC"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="tbx-Rs-r7L"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="caloriesLabel" destination="op8-qd-0W0" id="Ap9-5d-27q"/>
                 <outlet property="ingredientsLabel" destination="A34-Wl-f5T" id="8FQ-Fq-JcA"/>
                 <outlet property="recipeImage" destination="BqH-Iy-IG8" id="uRb-jA-WlG"/>
                 <outlet property="recipeLabel" destination="iC6-yi-HUH" id="TYx-vT-8bi"/>
+                <outlet property="shadowView" destination="fc6-Jw-gCi" id="MXN-o7-bsY"/>
                 <outlet property="timeLabel" destination="idZ-N8-75f" id="cju-Rm-ahJ"/>
                 <outlet property="viewForTime" destination="A34-Wl-f5T" id="UAP-eB-oje"/>
             </connections>
-            <point key="canvasLocation" x="126" y="29"/>
+            <point key="canvasLocation" x="124.6376811594203" y="28.794642857142854"/>
         </tableViewCell>
     </objects>
     <resources>

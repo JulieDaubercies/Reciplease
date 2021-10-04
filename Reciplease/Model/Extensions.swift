@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 extension String {
     var data: Data? {
         guard let url = URL(string: self) else { return nil }

@@ -26,7 +26,6 @@ class FavoriteTableViewController: UITableViewController {
         // Register cell
         tableView.register(UINib.init(nibName: customCellId, bundle: nil), forCellReuseIdentifier: customCellId)
         tableView.separatorColor = UIColor.black
-        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,15 +43,27 @@ class FavoriteTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
         let data = coreDataManager?.favorite[indexPath.row]
         cell.recipeLabel.text = data?.name
-        cell.caloriesLabel.text = data?.calories
-        cell.timeLabel.text = data?.time
+        cell.caloriesLabel.text = (data?.calories)! + "kcal"
+        cell.timeLabel.text = (data?.time)! + "min"
         cell.ingredientsLabel.text = data?.ingredients?.joined(separator: ",")
         cell.recipeImage.image = UIImage(data: (data?.image)!)
+        cell.configure()
+        
+        // Smooth effect during scroll
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0.5
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1
+        }
+        
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
