@@ -43,10 +43,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
     
     @IBAction private func AddButton(_ sender: Any) {
-        // faire un guard let
-        if ingredientTextField.text?.isBlank == true {
-            // message d'erreur ??
-        } else {
+        if !ingredientTextField.text!.isBlank {
             arrayOfIngredients.append(ingredientTextField.text!.prefix(1).uppercased() + ingredientTextField.text!.lowercased().dropFirst())
             tableView.reloadData()
         }

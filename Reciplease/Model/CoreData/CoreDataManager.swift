@@ -51,12 +51,13 @@ final class CoreDataManager {
         for object in resultData {
             managedObjectContext.delete(object)
         }
-        do {
-            try managedObjectContext.save()
-            print("saved!")
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+        coreDataStack.saveContext()
+//        do {
+//            try managedObjectContext.save()
+//            print("saved!")
+//        } catch let error as NSError  {
+//            print("Could not save \(error), \(error.userInfo)")
+//        }
     }
 
     func controlFavorite(recipe: String) -> Bool {
@@ -65,9 +66,7 @@ final class CoreDataManager {
         fetchRequest.predicate = predicate
         let result = try? managedObjectContext.fetch(fetchRequest)
         let resultData = result as! [FavoriteRecipe]
-        for _ in resultData {
-            return true
-        }
+        for _ in resultData { return true }
         return false
     }
 }

@@ -14,7 +14,6 @@ class FavoriteTableViewController: UITableViewController {
     let customCellId = "CustomTableViewCell"
     private var coreDataManager: CoreDataManager?
     
-    
     // MARK: - Methods
     
     override func viewDidLoad() {
@@ -32,7 +31,6 @@ class FavoriteTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,8 +55,6 @@ class FavoriteTableViewController: UITableViewController {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1
         }
-        
-        
         return cell
     }
     

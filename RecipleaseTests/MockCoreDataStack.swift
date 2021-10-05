@@ -1,15 +1,15 @@
 //
-//  FakeCoreDataStack.swift
-//  CoreDataRecipleaseTests
+//  MockCoreDataStack.swift
+//  RecipleaseTests
 //
-//  Created by DAUBERCIES on 30/09/2021.
+//  Created by DAUBERCIES on 05/10/2021.
 //
 
 import Reciplease
 import Foundation
 import CoreData
 
-class FakeCoreDataStack: CoreDataStack {
+class MockCoreDataStack: CoreDataStack {
     
     convenience init() {
         self.init(modelName: "Reciplease")

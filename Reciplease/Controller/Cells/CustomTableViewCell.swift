@@ -17,18 +17,15 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet var caloriesLabel: UILabel!
     @IBOutlet var viewForTime: UIView!
     @IBOutlet var ingredientsLabel: UILabel!
-    
-    
+        
     func configure() {
-        shadowView.layer.cornerRadius = 10
         shadowView.layer.cornerRadius = 10
         shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOffset = CGSize(width: 0, height: 1)
         shadowView.layer.shadowRadius = 5
         shadowView.layer.shadowOpacity = 0.5
         shadowView.layer.masksToBounds = false
-        
-        recipeImage.contentMode = .scaleAspectFill
+        // recipeImage.contentMode = .scaleAspectFill
         recipeImage.layer.cornerRadius = 10
     }
     

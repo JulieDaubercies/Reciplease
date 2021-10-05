@@ -21,18 +21,6 @@ extension String {
     }
 }
 
-extension UIViewController {
-    /**
-     * Display an alert to enter the task name
-     */
-    func displayTaskAlert(handlerTaskName: @escaping (String?) -> Void) {
-        let alertController = UIAlertController(title: "Add new task", message: "", preferredStyle: .alert)
-        let addAction = UIAlertAction(title: "Add", style: .default, handler: nil)
-        alertController.addAction(addAction)
-        present(alertController, animated: true, completion: nil)
-    }
-}
-
 extension UIImage {
 var circleMask: UIImage {
     let square = size.width > size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)

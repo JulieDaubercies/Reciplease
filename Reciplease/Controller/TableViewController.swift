@@ -9,7 +9,6 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
-    
     // MARK: - Properties
     
     var recipeService = RecipeService()
@@ -28,7 +27,6 @@ class TableViewController: UITableViewController {
 //            }
 //        }
 //    }
-    
     
     // MARK: - Methods
     
@@ -57,7 +55,7 @@ class TableViewController: UITableViewController {
         nextPage = link
     }
     
-    func fetchMoreData(completed:((Bool) -> Void)? = nil) {
+    func fetchMoreData() {
         if !self.isPaginating {
             self.isPaginating = true
         }
@@ -77,7 +75,8 @@ class TableViewController: UITableViewController {
                                       completion: nil)
                     
                     //self?.tableView.reloadData()
-                    self?.getTheNextPage(link: moreData.links.next.href)
+                 //   self?.getTheNextPage(link: moreData.links.next.href)
+                    self?.nextPage = moreData.links.next.href
                     self?.isPaginating = false
                 case .failure(let error):
                     print(error)
@@ -112,15 +111,6 @@ class TableViewController: UITableViewController {
             cell.picture = hits[indexPath.row].recipe
             cell.list = hits[indexPath.row].recipe
             cell.configure()
-            
-            // Smooth effect during scroll
-            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
-            cell.layer.transform = rotationTransform
-            cell.alpha = 0
-            UIView.animate(withDuration: 0.75) {
-                cell.layer.transform = CATransform3DIdentity
-                cell.alpha = 1
-            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellId, for: indexPath) as! LoadingCell
@@ -129,6 +119,18 @@ class TableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Smooth effect during scroll
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1
+        }
+    }
+    
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }

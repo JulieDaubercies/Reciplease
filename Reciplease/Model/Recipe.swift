@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Welcome
-struct Welcome: Decodable {
+struct RecipeStructure: Decodable {
     let hits: [Hit]
     let links: WelcomeLinks
     

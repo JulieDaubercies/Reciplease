@@ -19,7 +19,7 @@ extension NetworkError: CustomStringConvertible {
         case .invalidResponse:
             return "Erreur rencontrée lors de l'appel réseau"
         case .undecodableData:
-            return "Données incorrectes, impossible de décoder"
+            return "Les données rentrées sont incorrectes, impossible de charger des recettes"
         }
     }
 }

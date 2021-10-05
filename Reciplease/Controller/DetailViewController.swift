@@ -39,13 +39,15 @@ class DetailViewController: UIViewController  {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if navigationController?.tabBarItem.tag == 0 {
-            if coreDataManager?.controlFavorite(recipe: title ?? "recette") == false {
-                  favoriteButton.setImage(.init(systemName: "star"), for: .normal)
-            }
+        guard let coreDataManager = coreDataManager else {
+            return
+        }
+        if coreDataManager.controlFavorite(recipe: title ?? "recette") {
+            favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)
+        } else {
+            favoriteButton.setImage(.init(systemName: "star"), for: .normal)
         }
     }
-
     
     // utiliser sdwebimage??
     private func loadImage() {
@@ -95,26 +97,23 @@ class DetailViewController: UIViewController  {
 
     @IBAction private func favouriteButtonDidTap(_ sender: Any) {
         if searchResponse && !isFavourited {
-           // print(4)
             updateFavoriteButton(isFavourite: true)
             addFavourite()
             isFavourited = true
         } else  if searchResponse && isFavourited {
-          //  print(5)
             updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             isFavourited = false
         } else  if !searchResponse && isFavourited {
-         //   print(6)
             updateFavoriteButton(isFavourite: false)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             navigationController?.popViewController(animated: true)
             isFavourited = false
-            if navigationController?.tabBarItem.tag == 1 {
-                tabBarController?.selectedIndex = 0
-                    viewWillAppear(true)
-                tabBarController?.selectedIndex = 1
-            }
+//            if navigationController?.tabBarItem.tag == 1 {
+//                tabBarController?.selectedIndex = 0
+//                    viewWillAppear(true)
+//                tabBarController?.selectedIndex = 1
+//            }
         }
     }
 
@@ -173,7 +172,3 @@ extension DetailViewController: UITableViewDataSource {
         }
     }
 }
-
-//        if searchResponse && isFavourited == false {
-//            isFavourited = !isFavourited
-//        }

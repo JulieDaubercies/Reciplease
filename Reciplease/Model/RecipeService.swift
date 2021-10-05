@@ -24,8 +24,7 @@ class RecipeService {
     // MARK: - Methods
 
     // fonction pour les tests d'alamofire
-    func fetchRequests(ingredients: String, url : URL, callback: @escaping (Result<Welcome,NetworkError>)-> Void) {
-       // guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
+    func fetchRequests(ingredients: String, url : URL, callback: @escaping (Result<RecipeStructure,NetworkError>)-> Void) {
         session.request(ingredients: ingredients, url: url) { dataResponse in
             guard let data = dataResponse.data else {
                 callback(.failure(.noData))
@@ -35,25 +34,17 @@ class RecipeService {
                 callback(.failure(.invalidResponse))
                 return
             }
-            guard let dataDecoded = try? JSONDecoder().decode(Welcome.self, from: data) else {
+            guard let dataDecoded = try? JSONDecoder().decode(RecipeStructure.self, from: data) else {
                 callback(.failure(.undecodableData))
                 return
             }
             callback(.success(dataDecoded))
         }
     }
-
-    
-//https://api.edamam.com/api/recipes/v2?_cont=CHcVQBtNNQphDmgVQntAEX4BYlFtAwUDSmVHAGYbZVZxDAIFUXlSUDARNVQgDAdVFWUWVjFFYQAlDAsDSmQSVTMbYgQlAgYVLnlSVSBMPkd5BgMbUSYRVTdgMgksRlpSAAcRXTVGcV84SU4%3D
     
     
     
-    // MARK: - Properties
-    
-    private var url = "https://api.edamam.com/search?"
-    
-    // MARK: - Methods
-    
+//    private var url = "https://api.edamam.com/search?"
 //    func fetchRequest(ingredients: String, to: Int, callback: @escaping (Result<Welcome, Error>) -> Void) {
 //        let parameters = ["q" : ingredients, "app_key" : "\(ApiKey.app_key)", "app_id" : "\(ApiKey.app_id)", "to": to] as [String : Any]
 //        AF.request(url, method: .get, parameters: parameters).responseJSON { response in

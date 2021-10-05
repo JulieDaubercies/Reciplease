@@ -10,11 +10,19 @@ import XCTest
 
 class RecipleaseTests: XCTestCase {
 
+    
+    
+    // MARK: - Properties
+
+    // var url = URL(string: "https://api.edamam.com/api/recipes/v2?app_key=98ee6e62007af9ff9f92549710183fbb&app_id=7732ff7c&q=tomato&type=public")
+     var url = URL(string: "https://api.edamam.com/api/recipes/v2?")
+    
+    
     func testGetData_WhenNoDataIsPassed_ThenShouldReturnFailedCallback() {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: nil, data: nil))
         let requestService = RecipeService(session: session)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+        requestService.fetchRequests(ingredients: "tomato", url: url!) { result in
             guard case .failure(let error) = result else {
                 XCTFail("Test getData method with no data failed.")
                 return
@@ -29,7 +37,7 @@ class RecipleaseTests: XCTestCase {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseKO, data: FakeResponseData.correctData))
         let requestService = RecipeService(session: session)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+        requestService.fetchRequests(ingredients: "tomato", url: url!) { result in
             guard case .failure(let error) = result else {
                 XCTFail("Test getData method with incorrect response failed.")
                 return
@@ -44,7 +52,7 @@ class RecipleaseTests: XCTestCase {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.incorrectData))
         let requestService = RecipeService(session: session)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+        requestService.fetchRequests(ingredients: "tomato", url: url!) { result in
             guard case .failure(let error) = result else {
                 XCTFail("Test getData method with undecodable data failed.")
                 return
@@ -59,7 +67,7 @@ class RecipleaseTests: XCTestCase {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData))
         let requestService = RecipeService(session: session)
         let expectation = XCTestExpectation(description: "Wait for queue change.")
-        requestService.fetchRequests(ingredients: "tomato", to: 1) { result in
+        requestService.fetchRequests(ingredients: "tomato", url: url!) { result in
             guard case .success(let data) = result else {
                 XCTFail("Test getData method with correct data failed.")
                 return
