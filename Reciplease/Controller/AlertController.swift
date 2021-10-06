@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension UIViewController {
 
     /// Alert message of Network Error

@@ -15,6 +15,7 @@ struct FakeResponse {
 }
 
 final class FakeEdamamSession: AlamofireSession {
+    
 
     // MARK: - Properties
 

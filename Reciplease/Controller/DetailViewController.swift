@@ -14,7 +14,7 @@ class DetailViewController: UIViewController  {
     var recipeIndexPath: Int?
     var searchResponse: Bool!
     var recipeService = [Hit]()
-    private var isFavourited: Bool!
+    private var isFavourited: Bool = true
     private var coreDataManager: CoreDataManager?
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -51,22 +51,24 @@ class DetailViewController: UIViewController  {
     
     // utiliser sdwebimage??
     private func loadImage() {
+        guard let index = recipeIndexPath else { return }
         if searchResponse {
-            if let imageToLoad =  recipeService[recipeIndexPath!].recipe.image.data {
+            if let imageToLoad =  recipeService[index].recipe.image.data {
                 recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
             }
         } else {
-            if let imageToLoad = coreDataManager?.favorite[recipeIndexPath!].image {
+            if let imageToLoad = coreDataManager?.favorite[index].image {
                 recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
             }
         }
     }
 
     private func loadTitle() {
+        guard let index = recipeIndexPath else { return }
         if searchResponse {
-            title = recipeService[recipeIndexPath!].recipe.label
+            title = recipeService[index].recipe.label
         } else {
-            title = coreDataManager?.favorite[recipeIndexPath!].name
+            title = coreDataManager?.favorite[index].name
         }
     }
 
@@ -109,39 +111,38 @@ class DetailViewController: UIViewController  {
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             navigationController?.popViewController(animated: true)
             isFavourited = false
-//            if navigationController?.tabBarItem.tag == 1 {
-//                tabBarController?.selectedIndex = 0
-//                    viewWillAppear(true)
-//                tabBarController?.selectedIndex = 1
-//            }
         }
     }
 
     private func addFavourite() {
+        guard let index = recipeIndexPath else { return }
         guard let name = title else { return }
-        let time = recipeService[recipeIndexPath!].recipe.totalTime
+        guard let imageData = recipeService[index].recipe.image.data else { return }
+        
+        let time = recipeService[index].recipe.totalTime
         let stringTime = String(time)
-        let calories = Int(recipeService[recipeIndexPath!].recipe.calories)
+        let calories = Int(recipeService[index].recipe.calories)
         let stringCalories = String(calories)
-        let image = (recipeService[recipeIndexPath!].recipe.image.data)!
-        let url = recipeService[recipeIndexPath!].recipe.url
+        let image = imageData
+        let url = recipeService[index].recipe.url
         var listOfIngredients: [String] = []
         var longListOfIngredients: [String] = []
-        for ingredients in recipeService[recipeIndexPath!].recipe.ingredients {
+        for ingredients in recipeService[index].recipe.ingredients {
             listOfIngredients.append(ingredients.food)
             longListOfIngredients.append(ingredients.text)
         }
         coreDataManager?.createFavorite(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
 
-    /// Open on Safari, website instructions
+    /// Open website instructions on Safari
     @IBAction private func getDirectionsButton(_ sender: Any) {
         var recipeUrl: String = ""
         guard let index = recipeIndexPath else { return }
         if searchResponse {
             recipeUrl = recipeService[index].recipe.url
         } else {
-            recipeUrl = (coreDataManager?.favorite[index].url)!
+            guard let url = coreDataManager?.favorite[index].url else { return }
+            recipeUrl = url
         }
         if let url = URL(string: recipeUrl) {
             UIApplication.shared.open(url)
@@ -154,20 +155,24 @@ class DetailViewController: UIViewController  {
 extension DetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let index = recipeIndexPath else { return 0 }
         if searchResponse {
-            return recipeService[recipeIndexPath!].recipe.ingredients.count
+            return recipeService[index].recipe.ingredients.count
         } else {
-            return (coreDataManager?.favorite[recipeIndexPath!].ingredientsDetail?.count)!
+            guard let favoriteRecipeCount = coreDataManager?.favorite[index].ingredientsDetail?.count else { return 0 }
+            return favoriteRecipeCount
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath)
+        guard let index = recipeIndexPath else { return cell }
         if searchResponse {
-            cell.textLabel?.text = ". " + recipeService[recipeIndexPath!].recipe.ingredients[indexPath.row].text
+            cell.textLabel?.text = ". " + recipeService[index].recipe.ingredients[indexPath.row].text
             return cell
         } else {
-            cell.textLabel?.text = ". " + (coreDataManager?.favorite[recipeIndexPath!].ingredientsDetail?[indexPath.row])!
+            guard let favoriteIngredientsDetail = coreDataManager?.favorite[index].ingredientsDetail?[indexPath.row] else { return cell}
+            cell.textLabel?.text = ". " + favoriteIngredientsDetail
             return cell
         }
     }

@@ -25,8 +25,8 @@ class CustomTableViewCell: UITableViewCell {
         shadowView.layer.shadowRadius = 5
         shadowView.layer.shadowOpacity = 0.5
         shadowView.layer.masksToBounds = false
-        // recipeImage.contentMode = .scaleAspectFill
         recipeImage.layer.cornerRadius = 10
+        // recipeImage.contentMode = .scaleAspectFill
     }
     
     var recipe: Recipe? {

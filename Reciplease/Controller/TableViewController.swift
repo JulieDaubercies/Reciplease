@@ -19,15 +19,6 @@ class TableViewController: UITableViewController {
     var nextPage: String?
     var isPaginating = false
     
-//    private var recipe = [Hit]() {
-//        didSet {
-//            DispatchQueue.main.async { [weak self] in
-//                self?.fetchData()
-//                self?.tableView.reloadData()
-//            }
-//        }
-//    }
-    
     // MARK: - Methods
     
     override func viewDidLoad() {
@@ -50,22 +41,19 @@ class TableViewController: UITableViewController {
         }
     }
     
-    ///Collect link for next page
-    func getTheNextPage(link: String) {
-        nextPage = link
-    }
-    
     func fetchMoreData() {
         if !self.isPaginating {
             self.isPaginating = true
         }
-        guard let url = URL(string: nextPage! ) else { return }
-        recipeService.fetchRequests(ingredients: ingredients!, url: url) { [weak self] result in
+        guard let nextRecipe = nextPage else { return }
+        guard let url = URL(string: nextRecipe ) else { return }
+        guard let ingredient = ingredients else { return }
+        recipeService.fetchRequests(ingredients: ingredient, url: url) { [weak self] result in
             DispatchQueue.main.async { [self] in
                 switch result {
                 case .success(let moreData):
                     self?.hits.append(contentsOf: moreData.hits)
-                    
+
                     UIView.transition(with: (self?.tableView)!,
                                       duration: 0.40,
                                       options: .transitionCrossDissolve,
@@ -73,9 +61,7 @@ class TableViewController: UITableViewController {
                         self?.tableView.reloadData()
                     },
                                       completion: nil)
-                    
-                    //self?.tableView.reloadData()
-                 //   self?.getTheNextPage(link: moreData.links.next.href)
+
                     self?.nextPage = moreData.links.next.href
                     self?.isPaginating = false
                 case .failure(let error):
@@ -136,7 +122,7 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = (storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController)!
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
         vc.recipeIndexPath = indexPath.row
         vc.recipeService = hits
         vc.searchResponse = true

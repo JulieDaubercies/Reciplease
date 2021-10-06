@@ -52,12 +52,6 @@ final class CoreDataManager {
             managedObjectContext.delete(object)
         }
         coreDataStack.saveContext()
-//        do {
-//            try managedObjectContext.save()
-//            print("saved!")
-//        } catch let error as NSError  {
-//            print("Could not save \(error), \(error.userInfo)")
-//        }
     }
 
     func controlFavorite(recipe: String) -> Bool {

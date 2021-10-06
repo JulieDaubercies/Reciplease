@@ -10,17 +10,21 @@ import UIKit
 
 
 extension String {
+    
+    /// Extension for conversion of URL image into data in DetailViewController
     var data: Data? {
         guard let url = URL(string: self) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         return data
     }
 
+    ///Extension to avoid blank entry in textfield
     var isBlank: Bool {
         return self.trimmingCharacters(in: .whitespaces) == String() ? true : false
     }
 }
 
+///  Extension to custumize picture in DetailViewController
 extension UIImage {
 var circleMask: UIImage {
     let square = size.width > size.height ? CGSize(width: size.width, height: size.width) : CGSize(width: size.height, height: size.height)
@@ -39,8 +43,8 @@ var circleMask: UIImage {
     }
 }
 
+/// Extension to custumize Button in SearchViewController and DetailViewController
 extension UIButton {
-    
     func addCornerRadius() {
         let button: UIButton
         button = self
@@ -51,9 +55,7 @@ extension UIButton {
         button.layer.shadowOpacity = 0.5
         button.layer.masksToBounds = false
     }
-}
-
-extension UIView {
+    
     @discardableResult
     func applyGradient(colours: [UIColor]) -> CAGradientLayer {
         return self.applyGradient(colours: colours, locations: nil)

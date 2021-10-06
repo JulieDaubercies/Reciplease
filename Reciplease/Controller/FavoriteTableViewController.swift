@@ -34,19 +34,27 @@ class FavoriteTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (coreDataManager?.favorite.count)!
+        guard let favoriteRecipeCount = coreDataManager?.favorite.count else { return 0 }
+        return favoriteRecipeCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
-        let data = coreDataManager?.favorite[indexPath.row]
-        cell.recipeLabel.text = data?.name
-        cell.caloriesLabel.text = (data?.calories)! + "kcal"
-        cell.timeLabel.text = (data?.time)! + "min"
-        cell.ingredientsLabel.text = data?.ingredients?.joined(separator: ",")
-        cell.recipeImage.image = UIImage(data: (data?.image)!)
-        cell.configure()
+        guard let data = coreDataManager?.favorite[indexPath.row] else { return cell }
+        guard let image = data.image else { return cell}
+        guard let calories = data.calories else { return cell}
+        guard let time = data.time else { return cell}
         
+        cell.recipeLabel.text = data.name
+        cell.caloriesLabel.text = calories + "kcal"
+        cell.timeLabel.text = time + "min"
+        cell.ingredientsLabel.text = data.ingredients?.joined(separator: ",")
+        cell.recipeImage.image = UIImage(data: image)
+        cell.configure()
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Smooth effect during scroll
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
         cell.layer.transform = rotationTransform
@@ -55,20 +63,18 @@ class FavoriteTableViewController: UITableViewController {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1
         }
-        return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = (storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController)!
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
         vc.recipeIndexPath = indexPath.row
         vc.searchResponse = false
         navigationController?.pushViewController(vc, animated: true)
     }
-
 
 // MARK: - UITableViewDelegate
 

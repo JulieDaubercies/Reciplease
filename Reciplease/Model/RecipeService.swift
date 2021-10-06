@@ -12,17 +12,17 @@ import Alamofire
 class RecipeService {
 
     // MARK: - Properties
-
+    
     private let session: AlamofireSession
     
     // MARK: - Initializer
-
+    
     init(session: AlamofireSession = EdamamSession()) {
         self.session = session
     }
     
     // MARK: - Methods
-
+    
     // fonction pour les tests d'alamofire
     func fetchRequests(ingredients: String, url : URL, callback: @escaping (Result<RecipeStructure,NetworkError>)-> Void) {
         session.request(ingredients: ingredients, url: url) { dataResponse in
@@ -41,28 +41,4 @@ class RecipeService {
             callback(.success(dataDecoded))
         }
     }
-    
-    
-    
-//    private var url = "https://api.edamam.com/search?"
-//    func fetchRequest(ingredients: String, to: Int, callback: @escaping (Result<Welcome, Error>) -> Void) {
-//        let parameters = ["q" : ingredients, "app_key" : "\(ApiKey.app_key)", "app_id" : "\(ApiKey.app_id)", "to": to] as [String : Any]
-//        AF.request(url, method: .get, parameters: parameters).responseJSON { response in
-//            switch response.result {
-//            case .success:
-//                if let data = response.data {
-//                    do {
-//                        let responseDecoded = try JSONDecoder().decode(Welcome.self, from: data)
-//                        callback(.success(responseDecoded))
-//                    } catch let error as NSError{
-//                        print(error)
-//                    }
-//                }
-//            case .failure(let error):
-//                print("Error:", error)
-//            }
-//        }
-//    }
 }
-
-// var url = "https://api.edamam.com/api/recipes/v2?"
