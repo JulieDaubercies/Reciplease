@@ -34,13 +34,32 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         searchButton.addCornerRadius()
         clearButton.addCornerRadius()
         self.clearButton.applyGradient(colours: [.lightGray, .darkGray])
-        self.searchButton.applyGradient(colours: [.systemYellow, .systemPink])
+      //  self.searchButton.applyGradient(colours: [.systemYellow, .systemPink])
         self.addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
         ingredientTextField.placeholder = "Carrot"
-        
         navigationController?.delegate = self
+        
+        let gradient = CAGradientLayer(layer: searchButton.layer)
+        gradient.colors = [UIColor.systemYellow.cgColor, UIColor.systemPink.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.frame = searchButton.bounds
+        gradient.cornerRadius = 10
+        gradient.locations = [0, 0.5]
+        searchButton.layer.insertSublayer(gradient, at: 0)
+
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [0.0, 0.5]
+        animation.toValue = [0.5, 2.0]
+
+        animation.duration = 5.0
+        animation.speed = 2.0
+        animation.autoreverses = true
+        animation.repeatCount = Float.infinity
+        searchButton.layer.add(animation, forKey: nil)
+      //  gradient.add(animation, forKey: nil)
     }
-    
+
     
     @IBAction private func AddButton(_ sender: Any) {
         guard let newIngredients = ingredientTextField.text else { return }

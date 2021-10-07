@@ -87,13 +87,28 @@ class DetailViewController: UIViewController  {
             }
         }
         favoriteButton.tintColor = .yellow
+        
     }
     
+    func starAnimation() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.fromValue = [35, 15]
+        animation.toValue = [55, 15]
+        animation.duration = 2.0
+        animation.speed = 2.0
+        animation.autoreverses = true
+        animation.repeatCount = Float.infinity
+        favoriteButton.layer.add(animation, forKey: nil)
+    }
+    
+    
     private func updateFavoriteButton(isFavourite : Bool){
+        favoriteButton.layer.removeAllAnimations()
         if isFavourite {
             favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)
         } else {
             favoriteButton.setImage(.init(systemName: "star"), for: .normal)
+            starAnimation()
         }
     }
 

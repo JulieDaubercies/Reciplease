@@ -55,25 +55,20 @@ extension UIButton {
         button.layer.shadowOpacity = 0.5
         button.layer.masksToBounds = false
     }
-    
-    @discardableResult
-    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
-        return self.applyGradient(colours: colours, locations: nil)
-    }
 
     @discardableResult
-    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
+    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = self.bounds
-       // gradient.colors = [UIColor.systemYellow.cgColor, UIColor.systemPink.cgColor]
-       // gradient.endPoint = CGPoint(x: 1, y: 0.5)
         gradient.colors = colours.map { $0.cgColor }
-        gradient.locations = locations
         gradient.cornerRadius = 10
         self.layer.insertSublayer(gradient, at: 0)
         return gradient
     }
 }
+
+
+
 
 //extension UIImageView {
 //    func load(url: URL) {
@@ -88,3 +83,22 @@ extension UIButton {
 //        }
 //    }
 //}
+
+
+//    @discardableResult
+//    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
+//        return self.applyGradient(colours: colours, locations: nil)
+//    }
+//
+//    @discardableResult
+//    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//        gradient.frame = self.bounds
+//       // gradient.colors = [UIColor.systemYellow.cgColor, UIColor.systemPink.cgColor]
+//       // gradient.endPoint = CGPoint(x: 1, y: 0.5)
+//        gradient.colors = colours.map { $0.cgColor }
+//        gradient.locations = locations
+//        gradient.cornerRadius = 10
+//        self.layer.insertSublayer(gradient, at: 0)
+//        return gradient
+//    }
