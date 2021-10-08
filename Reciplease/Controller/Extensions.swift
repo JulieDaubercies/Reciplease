@@ -65,8 +65,31 @@ extension UIButton {
         self.layer.insertSublayer(gradient, at: 0)
         return gradient
     }
-}
+    
+    @discardableResult
+    func ApplyGradientWithAnimation(colours: [UIColor]) -> CABasicAnimation {
+        let gradient = CAGradientLayer(layer: self.layer)
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.frame = self.bounds
+        gradient.cornerRadius = 10
+        gradient.locations = [0, 0.5]
+        self.layer.insertSublayer(gradient, at: 0)
 
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [0.0, 0.5]
+        animation.toValue = [0.5, 2.0]
+        animation.duration = 5.0
+        animation.speed = 2.0
+        animation.autoreverses = true
+        animation.repeatCount = Float.infinity
+        animation.isRemovedOnCompletion = false
+        gradient.add(animation, forKey: nil)
+        return animation
+    }
+    
+}
 
 
 

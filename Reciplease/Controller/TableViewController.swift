@@ -10,15 +10,15 @@ import UIKit
 class TableViewController: UITableViewController {
 
     // MARK: - Properties
-    
-    var recipeService = RecipeService()
-    var hits = [Hit]()
-    let customCellId = "CustomTableViewCell"
-    let loadingCellId = "LoadingCell"
+
+    private  var recipeService = RecipeService()
+    private let customCellId = "CustomTableViewCell"
+    private let loadingCellId = "LoadingCell"
+    private var isPaginating = false
     var ingredients: String?
     var nextPage: String?
-    var isPaginating = false
-    
+    var hits = [Hit]()
+
     // MARK: - Methods
     
     override func viewDidLoad() {
@@ -40,8 +40,8 @@ class TableViewController: UITableViewController {
             fetchMoreData()
         }
     }
-    
-    func fetchMoreData() {
+
+    private func fetchMoreData() {
         if !self.isPaginating {
             self.isPaginating = true
         }
@@ -76,7 +76,7 @@ class TableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
             return 2
         }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return hits.count
@@ -86,7 +86,7 @@ class TableViewController: UITableViewController {
             return 0
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
@@ -115,8 +115,7 @@ class TableViewController: UITableViewController {
             cell.alpha = 1
         }
     }
-    
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }

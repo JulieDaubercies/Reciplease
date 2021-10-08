@@ -12,12 +12,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
     // MARK: - Properties
     
-    @IBOutlet var loadingView: UIView!
-    @IBOutlet var ingredientTextField: UITextField!
-    @IBOutlet var addIngredientButton: UIButton!
-    @IBOutlet var clearButton: UIButton!
-    @IBOutlet var searchButton: UIButton!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet private var loadingView: UIView!
+    @IBOutlet private var ingredientTextField: UITextField!
+    @IBOutlet private var addIngredientButton: UIButton!
+    @IBOutlet private var clearButton: UIButton!
+    @IBOutlet private var searchButton: UIButton!
+    @IBOutlet private var tableView: UITableView!
     private var recipeService = RecipeService()
     private var arrayOfIngredients: [String] = []
     private let presentingIndicatorTypes = {
@@ -33,34 +33,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         addIngredientButton.addCornerRadius()
         searchButton.addCornerRadius()
         clearButton.addCornerRadius()
-        self.clearButton.applyGradient(colours: [.lightGray, .darkGray])
-      //  self.searchButton.applyGradient(colours: [.systemYellow, .systemPink])
-        self.addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
+        clearButton.applyGradient(colours: [.lightGray, .darkGray])
+        searchButton.ApplyGradientWithAnimation(colours: [.systemYellow, .systemPink])
+        addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
         ingredientTextField.placeholder = "Carrot"
         navigationController?.delegate = self
-        
-        let gradient = CAGradientLayer(layer: searchButton.layer)
-        gradient.colors = [UIColor.systemYellow.cgColor, UIColor.systemPink.cgColor]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        gradient.frame = searchButton.bounds
-        gradient.cornerRadius = 10
-        gradient.locations = [0, 0.5]
-        searchButton.layer.insertSublayer(gradient, at: 0)
-
-        let animation = CABasicAnimation(keyPath: "locations")
-        animation.fromValue = [0.0, 0.5]
-        animation.toValue = [0.5, 2.0]
-
-        animation.duration = 5.0
-        animation.speed = 2.0
-        animation.autoreverses = true
-        animation.repeatCount = Float.infinity
-        searchButton.layer.add(animation, forKey: nil)
-      //  gradient.add(animation, forKey: nil)
     }
 
-    
     @IBAction private func AddButton(_ sender: Any) {
         guard let newIngredients = ingredientTextField.text else { return }
         if !newIngredients.isBlank {

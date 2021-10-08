@@ -11,7 +11,7 @@ class FavoriteTableViewController: UITableViewController {
     
     // MARK: - Properties
 
-    let customCellId = "CustomTableViewCell"
+    private let customCellId = "CustomTableViewCell"
     private var coreDataManager: CoreDataManager?
     
     // MARK: - Methods

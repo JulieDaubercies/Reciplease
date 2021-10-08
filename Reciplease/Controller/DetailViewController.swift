@@ -16,10 +16,10 @@ class DetailViewController: UIViewController  {
     var recipeService = [Hit]()
     private var isFavourited: Bool = true
     private var coreDataManager: CoreDataManager?
-    @IBOutlet var recipeImage: UIImageView!
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var getDirectionsButton: UIButton!
-    @IBOutlet var favoriteButton: UIButton!
+    @IBOutlet private var recipeImage: UIImageView!
+    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var getDirectionsButton: UIButton!
+    @IBOutlet private var favoriteButton: UIButton!
     
     // MARK: - Methods
 
@@ -87,22 +87,19 @@ class DetailViewController: UIViewController  {
             }
         }
         favoriteButton.tintColor = .yellow
-        
     }
     
-    func starAnimation() {
-        let animation = CABasicAnimation(keyPath: "position")
-        animation.fromValue = [35, 15]
-        animation.toValue = [55, 15]
+    private func starAnimation() {
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.toValue = 2*CGFloat.pi
         animation.duration = 2.0
-        animation.speed = 2.0
-        animation.autoreverses = true
+        animation.speed = 0.5
         animation.repeatCount = Float.infinity
+        animation.isRemovedOnCompletion = false
         favoriteButton.layer.add(animation, forKey: nil)
     }
     
-    
-    private func updateFavoriteButton(isFavourite : Bool){
+    private func updateFavoriteButton(isFavourite : Bool) {
         favoriteButton.layer.removeAllAnimations()
         if isFavourite {
             favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)

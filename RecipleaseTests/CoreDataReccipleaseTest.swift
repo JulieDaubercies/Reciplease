@@ -53,23 +53,20 @@ class CoreDataRecipleaseTests: XCTestCase {
         XCTAssertTrue(coreDataManager.favorite.isEmpty)
     }
 
-    func testControlFavoriteMethods_WhenAnEntityIsCreated_ThenShouldBeCorrectlySaved() {
+    func testControlFavoriteMethods_WhenAnEntityIsFavorite_ThenShouldBeTrue() {
         let urlImage = "https://food52.com/recipes/72140-grated-tomato"
         let image = urlImage.data!
         coreDataManager.createFavorite(name: "test", time: "", calories: "", ingredients: [""], image: image, ingredientsDetail: [""], url: "")
         
-        coreDataManager.controlFavorite(recipe: "test")
-
-        XCTAssertTrue(coreDataManager.favorite[0].name == "test")
+        XCTAssertEqual(coreDataManager.controlFavorite(recipe: "test"), true)
     }
     
-    func testControlFavorite2Methods_WhenAnEntityIsCreated_ThenShouldBeCorrectlySaved() {
+    func testControlFavoriteMethods_WhenAnEntityIsNotFavorite_ThenShouldBeFalse() {
         let urlImage = "https://food52.com/recipes/72140-grated-tomato"
         let image = urlImage.data!
         coreDataManager.createFavorite(name: "test", time: "", calories: "", ingredients: [""], image: image, ingredientsDetail: [""], url: "")
         
-        coreDataManager.controlFavorite(recipe: "fake")
 
-        XCTAssertFalse(coreDataManager.favorite[0].name == "fake")
+        XCTAssertEqual(coreDataManager.controlFavorite(recipe: "fake"), false)
     }
 }
