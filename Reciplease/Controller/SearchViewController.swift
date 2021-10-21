@@ -30,15 +30,23 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         super.viewDidLoad()
         navigationItem.title = "Reciplease"
         tableView.dataSource = self
-        addIngredientButton.addCornerRadius()
-        searchButton.addCornerRadius()
-        clearButton.addCornerRadius()
+        addIngredientButton.addShadow()
+        searchButton.addShadow()
+        clearButton.addShadow()
         clearButton.applyGradient(colours: [.lightGray, .darkGray])
-        searchButton.ApplyGradientWithAnimation(colours: [.systemYellow, .systemPink])
         addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
+        
         ingredientTextField.placeholder = "Carrot"
         navigationController?.delegate = self
+        
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //searchButton.applyGradient(colours: [.systemYellow, .systemPink]).frame = searchButton.bounds
+        searchButton.ApplyGradientWithAnimation(colours: [.systemYellow, .systemPink])
+    }
+    
 
     @IBAction private func AddButton(_ sender: Any) {
         guard let newIngredients = ingredientTextField.text else { return }

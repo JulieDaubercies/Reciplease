@@ -65,7 +65,8 @@ class TableViewController: UITableViewController {
                     self?.nextPage = moreData.links.next.href
                     self?.isPaginating = false
                 case .failure(let error):
-                    print(error)
+                  //  print(error)
+                    self?.alert(message: "\(error)")
                 }
             }
         }

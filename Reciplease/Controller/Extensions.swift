@@ -45,7 +45,7 @@ var circleMask: UIImage {
 
 /// Extension to custumize Button in SearchViewController and DetailViewController
 extension UIButton {
-    func addCornerRadius() {
+    func addShadow() {
         let button: UIButton
         button = self
         button.layer.cornerRadius = 10

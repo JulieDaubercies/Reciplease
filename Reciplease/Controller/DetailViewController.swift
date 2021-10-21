@@ -29,13 +29,17 @@ class DetailViewController: UIViewController  {
         let coredataStack = appdelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
         
-        getDirectionsButton.addCornerRadius()
-        getDirectionsButton.applyGradient(colours: [.systemYellow, .systemPink])
+        getDirectionsButton.addShadow()
         tableView.dataSource = self
 
         loadImage()
         loadTitle()
         controlFavoriteStatus()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        getDirectionsButton.applyGradient(colours: [.systemYellow, .systemPink]).frame = getDirectionsButton.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
