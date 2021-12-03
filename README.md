@@ -16,7 +16,7 @@ And an infinite scroll to load 20 more recipes when user get the end of the list
 
 
 When user select a recipe, he access to the detail of ingredients and a link to the website which provide instructions.
-User also can add the recipe in favorite, the star is moving while it whas selected ! Favorite are store in Core Data :
+User can also add the recipe in favorite, the star is moving while it was selected ! Favorite are store in Core Data :
 
-<img width="339" alt="Capture d’écran 2021-12-03 à 22 03 45" src="https://user-images.githubusercontent.com/79853433/144672802-553f881b-9d91-4b71-ba09-117e9a13d56e.png">
+<img width="264" alt="Capture d’écran 2021-12-03 à 22 03 45" src="https://user-images.githubusercontent.com/79853433/144672802-553f881b-9d91-4b71-ba09-117e9a13d56e.png">
 
