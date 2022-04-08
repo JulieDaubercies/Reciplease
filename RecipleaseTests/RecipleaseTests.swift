@@ -10,11 +10,8 @@ import XCTest
 
 class RecipleaseTests: XCTestCase {
 
-    
-    
     // MARK: - Properties
 
-    
     func testGetData_WhenNoDataIsPassed_ThenShouldReturnFailedCallback() {
         let session = FakeEdamamSession(fakeResponse: FakeResponse(response: nil, data: nil))
         let requestService = RecipeService(session: session)

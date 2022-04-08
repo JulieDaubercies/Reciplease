@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 extension String {
     
     /// Extension for conversion of URL image into data in DetailViewController

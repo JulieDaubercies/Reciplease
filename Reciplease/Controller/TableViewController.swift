@@ -7,6 +7,9 @@
 
 import UIKit
 
+// essayer de factoriser en une seule table View
+
+
 class TableViewController: UITableViewController {
 
     // MARK: - Properties
@@ -33,6 +36,7 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    // A faire attention par rapport aux mises à jour d'Apple
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -53,7 +57,6 @@ class TableViewController: UITableViewController {
                 switch result {
                 case .success(let moreData):
                     self?.hits.append(contentsOf: moreData.hits)
-
                     UIView.transition(with: (self?.tableView)!,
                                       duration: 0.40,
                                       options: .transitionCrossDissolve,
@@ -61,11 +64,10 @@ class TableViewController: UITableViewController {
                         self?.tableView.reloadData()
                     },
                                       completion: nil)
-
+                    
                     self?.nextPage = moreData.links.next.href
                     self?.isPaginating = false
                 case .failure(let error):
-                  //  print(error)
                     self?.alert(message: "\(error)")
                 }
             }

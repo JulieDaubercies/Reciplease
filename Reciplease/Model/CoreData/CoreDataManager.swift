@@ -42,6 +42,9 @@ final class CoreDataManager {
         coreDataStack.saveContext()
     }
     
+    // créer une entité favorite qui englobe tout les paramètres pour éviter de la redondance de code
+    
+    
     func deleteOneFavorite(recipe: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
         let predicate = NSPredicate(format: "name == '\(recipe)'")

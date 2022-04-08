@@ -53,7 +53,6 @@ class DetailViewController: UIViewController  {
         }
     }
     
-    // utiliser sdwebimage??
     private func loadImage() {
         guard let index = recipeIndexPath else { return }
         if searchResponse {

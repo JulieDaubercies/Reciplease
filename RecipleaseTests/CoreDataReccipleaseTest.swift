@@ -10,7 +10,6 @@ import XCTest
 
 class CoreDataRecipleaseTests: XCTestCase {
 
-
     // MARK: - Properties
 
     var coreDataStack: MockCoreDataStack!
@@ -65,7 +64,6 @@ class CoreDataRecipleaseTests: XCTestCase {
         let urlImage = "https://food52.com/recipes/72140-grated-tomato"
         let image = urlImage.data!
         coreDataManager.createFavorite(name: "test", time: "", calories: "", ingredients: [""], image: image, ingredientsDetail: [""], url: "")
-        
 
         XCTAssertEqual(coreDataManager.controlFavorite(recipe: "fake"), false)
     }

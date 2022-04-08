@@ -5,14 +5,13 @@
 //  Created by DAUBERCIES on 28/09/2021.
 //
 
-
 import Foundation
 import Alamofire
 
 class RecipeService {
 
     // MARK: - Properties
-    
+
     private let session: AlamofireSession
     
     // MARK: - Initializer
@@ -20,10 +19,9 @@ class RecipeService {
     init(session: AlamofireSession = EdamamSession()) {
         self.session = session
     }
-    
+
     // MARK: - Methods
-    
-    // fonction pour les tests d'alamofire
+
     func fetchRequests(ingredients: String, url : URL, callback: @escaping (Result<RecipeStructure,NetworkError>)-> Void) {
         session.request(ingredients: ingredients, url: url) { dataResponse in
             guard let data = dataResponse.data else {

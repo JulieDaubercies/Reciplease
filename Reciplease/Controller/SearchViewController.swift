@@ -23,6 +23,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     private let presentingIndicatorTypes = {
         return NVActivityIndicatorType.allCases.filter { $0 != .blank }
     }()
+    var viewModel = SearchViewModel()
     
     // MARK: - Methods
         
@@ -39,6 +40,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         ingredientTextField.placeholder = "Carrot"
         navigationController?.delegate = self
         
+        viewModel.ingredientField.bind {  [weak self] food in
+            self?.ingredientTextField.text = food
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,42 +53,42 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
 
     @IBAction private func AddButton(_ sender: Any) {
-        guard let newIngredients = ingredientTextField.text else { return }
-        if !newIngredients.isBlank {
-            arrayOfIngredients.append(newIngredients.prefix(1).uppercased() + newIngredients.lowercased().dropFirst())
-            tableView.reloadData()
-            ingredientTextField.text = ""
-        }
+        guard let element = ingredientTextField.text else {return }
+        viewModel.addButton(ingredient: element)
+        tableView.reloadData()
     }
 
     @IBAction private func clearButton(_ sender: Any) {
-        arrayOfIngredients.removeAll()
+       // arrayOfIngredients.removeAll()
+        viewModel.clearButton()
         tableView.reloadData()
     }
     
     /// Launch network call
     @IBAction private func searchButton(_ sender: UIButton) {
-        guard !arrayOfIngredients.isEmpty else {
-            alert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
-            return
-        }
         startAnimation()
-        guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
-        recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), url : url) { [weak self] result in
-            DispatchQueue.main.async { [self] in
-                switch result {
-                case .success(let recipe):
-                    if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-                        vc.hits = recipe.hits
-                        vc.nextPage = recipe.links.next.href
-                        vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
-                        self?.navigationController?.pushViewController(vc, animated: true)
-                    }
-                case .failure(let error):
-                    self?.alert(message: "\(error)")
-                }
-            }
-        }
+        viewModel.searchButton()
+//        guard !arrayOfIngredients.isEmpty else {
+//            alert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
+//            return
+//        }
+//        startAnimation()
+//        guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
+//        recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), url : url) { [weak self] result in
+//            DispatchQueue.main.async { [self] in
+//                switch result {
+//                case .success(let recipe):
+//                    if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+//                        vc.hits = recipe.hits
+//                        vc.nextPage = recipe.links.next.href
+//                        vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
+//                        self?.navigationController?.pushViewController(vc, animated: true)
+//                    }
+//                case .failure(let error):
+//                    self?.alert(message: "\(error)")
+//                }
+//            }
+//        }
     }
 
     /// Animation during network call
@@ -117,12 +121,29 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfIngredients.count
+        return viewModel.arrayOfIngredients.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"List", for: indexPath)
-        cell.textLabel?.text = ". " + arrayOfIngredients[indexPath.row]
+        cell.textLabel?.text = ". " + viewModel.arrayOfIngredients.value[indexPath.row]
         return cell
     }
+}
+
+extension SearchViewController: NetworkServiceDelegate {
+    func didCompleteRequest(result: [Hit]) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+//            vc.hits = recipe.hits
+//            vc.nextPage = recipe.links.next.href
+//            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
+            navigationController?.pushViewController(vc, animated: true)
+        }
+}
+    
+    func stopCall() {
+        // ?
+    }
+    
+    
 }
