@@ -40,6 +40,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         ingredientTextField.placeholder = "Carrot"
         navigationController?.delegate = self
         
+        viewModel.displayAlertDelegate = self
+        viewModel.delegateNetwork = self
+        
         viewModel.ingredientField.bind {  [weak self] food in
             self?.ingredientTextField.text = food
         }
@@ -59,7 +62,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     }
 
     @IBAction private func clearButton(_ sender: Any) {
-       // arrayOfIngredients.removeAll()
         viewModel.clearButton()
         tableView.reloadData()
     }
@@ -68,27 +70,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     @IBAction private func searchButton(_ sender: UIButton) {
         startAnimation()
         viewModel.searchButton()
-//        guard !arrayOfIngredients.isEmpty else {
-//            alert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
-//            return
-//        }
-//        startAnimation()
-//        guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
-//        recipeService.fetchRequests(ingredients: arrayOfIngredients.joined(separator: ","), url : url) { [weak self] result in
-//            DispatchQueue.main.async { [self] in
-//                switch result {
-//                case .success(let recipe):
-//                    if let vc = self?.storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-//                        vc.hits = recipe.hits
-//                        vc.nextPage = recipe.links.next.href
-//                        vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
-//                        self?.navigationController?.pushViewController(vc, animated: true)
-//                    }
-//                case .failure(let error):
-//                    self?.alert(message: "\(error)")
-//                }
-//            }
-//        }
     }
 
     /// Animation during network call
@@ -134,7 +115,7 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: NetworkServiceDelegate {
     func didCompleteRequest(result: [Hit]) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-//            vc.hits = recipe.hits
+            vc.hits = result
 //            vc.nextPage = recipe.links.next.href
 //            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
             navigationController?.pushViewController(vc, animated: true)
@@ -142,7 +123,13 @@ extension SearchViewController: NetworkServiceDelegate {
 }
     
     func stopCall() {
-        // ?
+        // annuler l'animation
+    }
+}
+
+extension SearchViewController: DisplayAlert {
+    func showAlert(message: String) {
+        alert(message: message)
     }
     
     
