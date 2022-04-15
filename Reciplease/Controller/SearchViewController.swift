@@ -21,6 +21,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     var viewModel = SearchViewModel()
     let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
     
+    var tableViewModel = ResultTableViewModel.shared
+    
     // MARK: - Methods
         
     override func viewDidLoad() {
@@ -47,18 +49,18 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
 
     @IBAction private func AddButton(_ sender: Any) {
         guard let element = ingredientTextField.text else {return }
-        viewModel.addButton(ingredient: element)
+        viewModel.addIngredient(ingredient: element)
         tableView.reloadData()
     }
 
     @IBAction private func clearButton(_ sender: Any) {
-        viewModel.clearButton()
+        viewModel.clearListOfIngredients()
         tableView.reloadData()
     }
     
     @IBAction private func searchButton(_ sender: UIButton) {
         startAnimation()
-        viewModel.searchButton()
+        viewModel.launchResearch()
     }
 
     /// Animation during network call
@@ -100,9 +102,9 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: NetworkServiceDelegate {
     func didCompleteRequest(result: [Hit]) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
-            vc.hits = result
-            vc.nextPage = viewModel.nextPage
-            vc.ingredients = viewModel.ingredientField.value
+            tableViewModel.hits = result
+            tableViewModel.nextPage = viewModel.nextPage
+            tableViewModel.ingredients = viewModel.ingredientField.value
             navigationController?.pushViewController(vc, animated: true)
         }
     }

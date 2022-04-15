@@ -27,18 +27,18 @@ class SearchViewModel {
     var arrayOfIngredients: Box<[String]> = Box([])
     var nextPage: String!
     
-    func addButton(ingredient: String) {
+    func addIngredient(ingredient: String) {
         if !ingredient.isBlank {
             arrayOfIngredients.value.append(ingredient.prefix(1).uppercased() + ingredient.lowercased().dropFirst())
             ingredientField.value = ""
         }
     }
     
-    func clearButton() {
+    func clearListOfIngredients() {
         arrayOfIngredients.value.removeAll()
     }
     
-    func searchButton() {
+    func launchResearch() {
         guard !arrayOfIngredients.value.isEmpty else {
             displayAlertDelegate?.showAlert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
             return
@@ -60,7 +60,4 @@ class SearchViewModel {
             }
         }
     }
-    
-    
-    
 }
