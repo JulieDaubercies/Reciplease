@@ -14,7 +14,7 @@ protocol DisplayAlert: AnyObject {
 protocol NetworkServiceDelegate: AnyObject {
 
     func didCompleteRequest(result: [Hit])
-    func stopCall()
+    func stopAnimation()
 }
 
 class SearchViewModel {
@@ -25,7 +25,7 @@ class SearchViewModel {
     var hit = [Hit]()
     var ingredientField: Box<String> = Box("")
     var arrayOfIngredients: Box<[String]> = Box([])
-    
+    var nextPage: String!
     
     func addButton(ingredient: String) {
         if !ingredient.isBlank {
@@ -43,17 +43,19 @@ class SearchViewModel {
             displayAlertDelegate?.showAlert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
             return
         }
-       // startAnimation()
         guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
         recipeService.fetchRequests(ingredients: arrayOfIngredients.value.joined(separator: ","), url : url) { [weak self] result in
             DispatchQueue.main.async { [self] in
                 switch result {
                 case .success(let recipe):
                     self?.hit = recipe.hits
+                    self?.nextPage = recipe.links.next.href
+                    self?.ingredientField.value = self?.arrayOfIngredients.value.joined(separator: ",") ?? "tomato"
                     self?.delegateNetwork?.didCompleteRequest(result: self!.hit)
+                    self?.delegateNetwork?.stopAnimation()
                 case .failure(let error):
                     self?.displayAlertDelegate?.showAlert(message: "\(error)")
-                    self?.delegateNetwork?.stopCall()
+                    self?.delegateNetwork?.stopAnimation()
                 }
             }
         }

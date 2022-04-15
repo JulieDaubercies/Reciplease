@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fgh-Bj-GLs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fgh-Bj-GLs">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -248,7 +248,7 @@
             </objects>
             <point key="canvasLocation" x="2285" y="279"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Reciplease-->
         <scene sceneID="eIr-CL-gSL">
             <objects>
                 <viewController storyboardIdentifier="Search" id="4sE-ji-UzH" customClass="SearchViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
@@ -268,7 +268,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="JWj-Bz-uct">
                                         <rect key="frame" x="0.0" y="51" width="370" height="38"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHc-V4-Rrk">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tomato" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHc-V4-Rrk">
                                                 <rect key="frame" x="0.0" y="0.0" width="274" height="38"/>
                                                 <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -380,24 +380,17 @@
                             <outletCollection property="gestureRecognizers" destination="N5J-cz-7cJ" appends="YES" id="otV-ib-Su7"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="qYA-kp-e5c"/>
+                    <navigationItem key="navigationItem" title="Reciplease" id="qYA-kp-e5c"/>
                     <connections>
                         <outlet property="addIngredientButton" destination="kBF-yw-2lQ" id="CK6-Gc-8gs"/>
                         <outlet property="clearButton" destination="cxd-Du-Wqx" id="kFD-VC-Y6M"/>
                         <outlet property="ingredientTextField" destination="RHc-V4-Rrk" id="NiS-Dk-w7x"/>
-                        <outlet property="loadingView" destination="kpS-uv-hub" id="bau-hh-ySB"/>
                         <outlet property="searchButton" destination="tBi-3Y-Pqo" id="ri5-rF-iav"/>
                         <outlet property="tableView" destination="l2A-Tj-7ik" id="Hzc-fe-QBa"/>
                         <segue destination="Lyg-md-Qwo" kind="show" identifier="Search" id="CTl-MT-aac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BT-77-cAf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <view hidden="YES" contentMode="scaleToFill" id="kpS-uv-hub">
-                    <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <viewLayoutGuide key="safeArea" id="dg0-oV-SCo"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
                 <tapGestureRecognizer id="N5J-cz-7cJ">
                     <connections>
                         <action selector="dismiss:" destination="4sE-ji-UzH" id="LLW-YM-UfN"/>

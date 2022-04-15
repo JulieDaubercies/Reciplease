@@ -89,38 +89,3 @@ extension UIButton {
     }
     
 }
-
-
-
-//extension UIImageView {
-//    func load(url: URL) {
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: url) {
-//                if let image = UIImage(data: data) {
-//                    DispatchQueue.main.async {
-//                        self?.image = image
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-
-//    @discardableResult
-//    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
-//        return self.applyGradient(colours: colours, locations: nil)
-//    }
-//
-//    @discardableResult
-//    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        gradient.frame = self.bounds
-//       // gradient.colors = [UIColor.systemYellow.cgColor, UIColor.systemPink.cgColor]
-//       // gradient.endPoint = CGPoint(x: 1, y: 0.5)
-//        gradient.colors = colours.map { $0.cgColor }
-//        gradient.locations = locations
-//        gradient.cornerRadius = 10
-//        self.layer.insertSublayer(gradient, at: 0)
-//        return gradient
-//    }

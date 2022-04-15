@@ -12,37 +12,27 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     
     // MARK: - Properties
     
-    @IBOutlet private var loadingView: UIView!
     @IBOutlet private var ingredientTextField: UITextField!
     @IBOutlet private var addIngredientButton: UIButton!
     @IBOutlet private var clearButton: UIButton!
     @IBOutlet private var searchButton: UIButton!
     @IBOutlet private var tableView: UITableView!
-    private var recipeService = RecipeService()
-    private var arrayOfIngredients: [String] = []
-    private let presentingIndicatorTypes = {
-        return NVActivityIndicatorType.allCases.filter { $0 != .blank }
-    }()
+    private let presentingIndicatorTypes = { return NVActivityIndicatorType.allCases.filter { $0 != .blank }}()
     var viewModel = SearchViewModel()
+    let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
     
     // MARK: - Methods
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Reciplease"
-        tableView.dataSource = self
         addIngredientButton.addShadow()
         searchButton.addShadow()
         clearButton.addShadow()
         clearButton.applyGradient(colours: [.lightGray, .darkGray])
         addIngredientButton.applyGradient(colours: [.systemYellow, .systemPink])
-        
-        ingredientTextField.placeholder = "Carrot"
         navigationController?.delegate = self
-        
         viewModel.displayAlertDelegate = self
         viewModel.delegateNetwork = self
-        
         viewModel.ingredientField.bind {  [weak self] food in
             self?.ingredientTextField.text = food
         }
@@ -66,7 +56,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
         tableView.reloadData()
     }
     
-    /// Launch network call
     @IBAction private func searchButton(_ sender: UIButton) {
         startAnimation()
         viewModel.searchButton()
@@ -74,7 +63,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
 
     /// Animation during network call
     private func startAnimation() {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
         loading.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loading)
         NSLayoutConstraint.activate([
@@ -83,13 +71,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
             loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        view.alpha = 0.8
         loading.startAnimating()
-        loadingView.isHidden = false
-        loadingView.alpha = 0.5
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            loading.stopAnimating()
-            self.loadingView.isHidden = true
-        }
     }
 
     @IBAction private func dismiss(_ sender: UITapGestureRecognizer) {
@@ -97,7 +80,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     }
 }
 
-// MARK: - extension TabkeViewCell
+// MARK: - extension TableViewCell
 
 extension SearchViewController: UITableViewDataSource {
     
@@ -112,25 +95,28 @@ extension SearchViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - extension networkCall management
+
 extension SearchViewController: NetworkServiceDelegate {
     func didCompleteRequest(result: [Hit]) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
             vc.hits = result
-//            vc.nextPage = recipe.links.next.href
-//            vc.ingredients = self?.arrayOfIngredients.joined(separator: ",")
+            vc.nextPage = viewModel.nextPage
+            vc.ingredients = viewModel.ingredientField.value
             navigationController?.pushViewController(vc, animated: true)
         }
-}
+    }
     
-    func stopCall() {
-        // annuler l'animation
+    func stopAnimation() {
+        loading.stopAnimating()
+        view.alpha = 1
     }
 }
+
+// MARK: - extension Alert
 
 extension SearchViewController: DisplayAlert {
     func showAlert(message: String) {
         alert(message: message)
     }
-    
-    
 }
