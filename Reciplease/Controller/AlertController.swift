@@ -15,4 +15,14 @@ extension UIViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(ac, animated: true)
     }
+    
+    func animateStar() -> CABasicAnimation{
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.toValue = 2*CGFloat.pi
+        animation.duration = 2.0
+        animation.speed = 0.5
+        animation.repeatCount = Float.infinity
+        animation.isRemovedOnCompletion = false
+        return animation
+    }
 }

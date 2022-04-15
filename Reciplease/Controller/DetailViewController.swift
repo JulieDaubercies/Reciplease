@@ -92,30 +92,21 @@ class DetailViewController: UIViewController  {
         favoriteButton.tintColor = .yellow
     }
     
-    private func starAnimation() {
-        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-        animation.toValue = 2*CGFloat.pi
-        animation.duration = 2.0
-        animation.speed = 0.5
-        animation.repeatCount = Float.infinity
-        animation.isRemovedOnCompletion = false
-        favoriteButton.layer.add(animation, forKey: nil)
-    }
-    
     private func updateFavoriteButton(isFavourite : Bool) {
         favoriteButton.layer.removeAllAnimations()
         if isFavourite {
             favoriteButton.setImage(.init(systemName: "star.fill"), for: .normal)
         } else {
             favoriteButton.setImage(.init(systemName: "star"), for: .normal)
-            starAnimation()
+            favoriteButton.layer.add(animateStar(), forKey: nil)
         }
     }
 
     @IBAction private func favouriteButtonDidTap(_ sender: Any) {
         if searchResponse && !isFavourited {
             updateFavoriteButton(isFavourite: true)
-            addFavourite()
+            guard let index = recipeIndexPath else { return }
+            coreDataManager?.createFavorite(recipe: recipeService[index].recipe)
             isFavourited = true
         } else  if searchResponse && isFavourited {
             updateFavoriteButton(isFavourite: false)
@@ -127,26 +118,6 @@ class DetailViewController: UIViewController  {
             navigationController?.popViewController(animated: true)
             isFavourited = false
         }
-    }
-
-    private func addFavourite() {
-        guard let index = recipeIndexPath else { return }
-        guard let name = title else { return }
-        guard let imageData = recipeService[index].recipe.image.data else { return }
-        
-        let time = recipeService[index].recipe.totalTime
-        let stringTime = String(time)
-        let calories = Int(recipeService[index].recipe.calories)
-        let stringCalories = String(calories)
-        let image = imageData
-        let url = recipeService[index].recipe.url
-        var listOfIngredients: [String] = []
-        var longListOfIngredients: [String] = []
-        for ingredients in recipeService[index].recipe.ingredients {
-            listOfIngredients.append(ingredients.food)
-            longListOfIngredients.append(ingredients.text)
-        }
-        coreDataManager?.createFavorite(name: name, time: stringTime, calories: stringCalories, ingredients: listOfIngredients, image: image, ingredientsDetail: longListOfIngredients, url: url)
     }
 
     /// Open website instructions on Safari

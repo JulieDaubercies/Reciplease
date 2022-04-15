@@ -29,21 +29,22 @@ final class CoreDataManager {
     }
 
     // MARK: - Manage Favorite Entity
-
-    func createFavorite(name: String, time: String, calories: String, ingredients: [String], image: Data, ingredientsDetail: [String], url: String) {
+    
+    func createFavorite(recipe: Recipe) {
         let addFavorite = FavoriteRecipe(context: managedObjectContext)
-        addFavorite.name = name
-        addFavorite.time = time
-        addFavorite.calories = calories
+        addFavorite.name = recipe.label
+        addFavorite.time = String(recipe.totalTime)
+        let kcal = Int(recipe.calories)
+        addFavorite.calories = String(kcal)
+        let ingredients = recipe.ingredients.map { $0.food }
         addFavorite.ingredients = ingredients
+        guard let image = recipe.image.data else { return }
         addFavorite.image = image
-        addFavorite.ingredientsDetail = ingredientsDetail
-        addFavorite.url = url
+        let detailIngredients = recipe.ingredients.map { $0.text }
+        addFavorite.ingredientsDetail = detailIngredients
+        addFavorite.url = recipe.url
         coreDataStack.saveContext()
     }
-    
-    // créer une entité favorite qui englobe tout les paramètres pour éviter de la redondance de code
-    
     
     func deleteOneFavorite(recipe: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteRecipe")
