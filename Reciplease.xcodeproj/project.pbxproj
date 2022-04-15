@@ -247,8 +247,8 @@
 		37EA6B552800681700AD1130 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				37EA6B562800692E00AD1130 /* SearchViewModel.swift */,
 				37EA6B5828006A2700AD1130 /* Box.swift */,
+				37EA6B562800692E00AD1130 /* SearchViewModel.swift */,
 				373EA8D12809627700B76702 /* ResultTableViewModel.swift */,
 			);
 			path = ViewModel;

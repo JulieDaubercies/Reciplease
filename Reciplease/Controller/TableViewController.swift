@@ -70,11 +70,7 @@ class TableViewController: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
             cell.selectionStyle = .none
-            cell.recipe = viewModel.hits[indexPath.row].recipe
-            cell.time = viewModel.hits[indexPath.row].recipe
-            cell.calories = viewModel.hits[indexPath.row].recipe
-            cell.picture = viewModel.hits[indexPath.row].recipe
-            cell.list = viewModel.hits[indexPath.row].recipe
+            cell.recipeInformations = viewModel.hits[indexPath.row].recipe
             cell.configure()
             return cell
         } else {

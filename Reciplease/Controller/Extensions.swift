@@ -87,5 +87,16 @@ extension UIButton {
         gradient.add(animation, forKey: nil)
         return animation
     }
+}
+
+extension UILabel {
     
+    var footLabel: UILabel {
+        let label = UILabel()
+        label.text = "Aucun favoris enregistrés"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .darkGray
+        return label
+    }
 }
