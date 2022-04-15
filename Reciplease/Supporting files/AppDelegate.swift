@@ -16,7 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var coreDataStack = CoreDataStack(modelName: "Reciplease")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        if #available(iOS 15, *) {
+                        let navigationBarAppearance = UINavigationBarAppearance()
+                        navigationBarAppearance.configureWithOpaqueBackground()
+                        navigationBarAppearance.titleTextAttributes = [
+                            NSAttributedString.Key.foregroundColor : UIColor.white
+                        ]
+            navigationBarAppearance.backgroundColor = #colorLiteral(red: 0.4992316365, green: 0.4463163614, blue: 0.4012482166, alpha: 1)
+                        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+                        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+                        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+                    
+                    let tabBarApperance = UITabBarAppearance()
+                    tabBarApperance.configureWithOpaqueBackground()
+                    tabBarApperance.backgroundColor = #colorLiteral(red: 0.4992316365, green: 0.4463163614, blue: 0.4012482166, alpha: 1)
+                    UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
+                    UITabBar.appearance().standardAppearance = tabBarApperance
+                }
         return true
     }
 
