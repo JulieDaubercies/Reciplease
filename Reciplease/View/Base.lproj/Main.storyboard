@@ -44,7 +44,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDG-da-z05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3305.7971014492755" y="-431.25"/>
+            <point key="canvasLocation" x="3312" y="128"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="0c1-FY-iW1">
@@ -171,8 +171,9 @@
         <!--Tab Bar Controller-->
         <scene sceneID="AFb-dU-oRc">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="fgh-Bj-GLs" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="fgh-Bj-GLs" customClass="TabBarController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ZmD-dx-BZK"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AuD-Nf-uVx">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -204,49 +205,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8Xi-qf-XU2" kind="relationship" relationship="rootViewController" id="JgB-LF-H6k"/>
+                        <segue destination="Lyg-md-Qwo" kind="relationship" relationship="rootViewController" id="UVJ-Hz-ck2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yue-UA-vMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1225" y="260"/>
-        </scene>
-        <!--Favorite Table View Controller-->
-        <scene sceneID="aOx-m2-UpO">
-            <objects>
-                <tableViewController storyboardIdentifier="Favorite" id="8Xi-qf-XU2" customClass="FavoriteTableViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="6LK-12-6Sl">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="IQg-ry-35T">
-                            <rect key="frame" x="0.0" y="111.33333206176758" width="390" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Recipe" id="O3W-Gp-VvK">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O3W-Gp-VvK" id="1Me-RJ-gND">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="8Xi-qf-XU2" id="ESd-cC-o95"/>
-                            <outlet property="delegate" destination="8Xi-qf-XU2" id="PZu-ji-Eqq"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="UZt-p2-Y4j"/>
-                    <connections>
-                        <segue destination="Iz8-GE-Jfi" kind="show" identifier="DetailFavorite" id="e0v-cC-WZh"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0kz-ih-ag6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2285" y="279"/>
         </scene>
         <!--Reciplease-->
         <scene sceneID="eIr-CL-gSL">
@@ -401,6 +365,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="huY-oN-XQ4"/>
+        <segue reference="UVJ-Hz-ck2"/>
     </inferredMetricsTieBreakers>
 </document>

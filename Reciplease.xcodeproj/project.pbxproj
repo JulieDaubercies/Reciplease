@@ -20,7 +20,6 @@
 		3797466F27032AD4008A3713 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3797466E27032AD4008A3713 /* SDWebImage */; };
 		3797467327032BC8008A3713 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467227032BC8008A3713 /* TableViewController.swift */; };
 		3797467527032BEF008A3713 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467427032BEF008A3713 /* DetailViewController.swift */; };
-		3797467727032C13008A3713 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467627032C13008A3713 /* FavoriteTableViewController.swift */; };
 		3797467B27032C4A008A3713 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467927032C4A008A3713 /* CustomTableViewCell.swift */; };
 		3797467C27032C4A008A3713 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3797467A27032C4A008A3713 /* CustomTableViewCell.xib */; };
 		3797467E27032CBF008A3713 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797467D27032CBF008A3713 /* Extensions.swift */; };
@@ -72,7 +71,6 @@
 		379746602703295F008A3713 /* RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseTests.swift; sourceTree = "<group>"; };
 		3797467227032BC8008A3713 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		3797467427032BEF008A3713 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		3797467627032C13008A3713 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
 		3797467927032C4A008A3713 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		3797467A27032C4A008A3713 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		3797467D27032CBF008A3713 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				3797464327032900008A3713 /* SearchViewController.swift */,
 				3797467227032BC8008A3713 /* TableViewController.swift */,
 				3797467427032BEF008A3713 /* DetailViewController.swift */,
-				3797467627032C13008A3713 /* FavoriteTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -473,7 +470,6 @@
 				3797467327032BC8008A3713 /* TableViewController.swift in Sources */,
 				3797468027032CDA008A3713 /* RecipeService.swift in Sources */,
 				3797464227032900008A3713 /* SceneDelegate.swift in Sources */,
-				3797467727032C13008A3713 /* FavoriteTableViewController.swift in Sources */,
 				3797468227032CF0008A3713 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

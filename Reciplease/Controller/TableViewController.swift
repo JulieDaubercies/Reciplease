@@ -7,10 +7,7 @@
 
 import UIKit
 
-// essayer de factoriser en une seule table View
-
-
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UITabBarControllerDelegate {
 
     // MARK: - Properties
 
@@ -19,11 +16,18 @@ class TableViewController: UITableViewController {
     private let customCellId = "CustomTableViewCell"
     private let loadingCellId = "LoadingCell"
     private var isPaginating = false
-
+    private var coreDataManager: CoreDataManager?
+    var searchResponse: Bool!  // créer un protocol à la place
+    
     // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let coredataStack = appdelegate.coreDataStack
+        coreDataManager = CoreDataManager(coreDataStack: coredataStack)
+        
         // Register cell
         tableView.register(UINib.init(nibName: customCellId, bundle: nil), forCellReuseIdentifier: customCellId)
         tableView.register(UINib.init(nibName: loadingCellId, bundle: nil), forCellReuseIdentifier: loadingCellId)
@@ -41,24 +45,44 @@ class TableViewController: UITableViewController {
     
     // A faire attention par rapport aux mises à jour d'Apple (ancienne méthode)
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        if (offsetY > contentHeight - scrollView.frame.height) && isPaginating == false {
-            viewModel.fetchMoreData()
+        if searchResponse == true {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            if (offsetY > contentHeight - scrollView.frame.height) && isPaginating == false {
+                viewModel.fetchMoreData()
+            }
         }
     }
     
-    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+        if selectedIndex == 0 {
+            searchResponse = true
+        } else {
+            searchResponse = false
+        }
+    }
 
     // MARK: - TableView data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if searchResponse == true {
             return 2
+        } else {
+            return 1
         }
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return viewModel.hits.count
+
+            if searchResponse == true {
+                return viewModel.hits.count
+            } else {
+                guard let favoriteRecipeCount = coreDataManager?.favorite.count else { return 0 }
+                return favoriteRecipeCount
+            }
+            
         } else if section == 1 {
             return 1
         } else {
@@ -70,9 +94,20 @@ class TableViewController: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
             cell.selectionStyle = .none
-            cell.recipeInformations = viewModel.hits[indexPath.row].recipe
             cell.configure()
-            return cell
+            
+            
+            if searchResponse == true {
+                cell.recipeInformations = viewModel.hits[indexPath.row].recipe
+                cell.configure()
+                return cell
+            } else {
+                guard let data = coreDataManager?.favorite[indexPath.row] else { return cell }
+                cell.favoriteRecipeInformations = data
+                cell.configure()
+                return cell
+            }
+            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellId, for: indexPath) as! LoadingCell
             cell.activityIndicator.startAnimating()
@@ -98,9 +133,25 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
         vc.recipeIndexPath = indexPath.row
-        vc.recipeService = viewModel.hits
-        vc.searchResponse = true
+        if searchResponse == true {
+            vc.recipeService = viewModel.hits
+            vc.searchResponse = true
+        } else {
+            vc.searchResponse = false
+        }
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+// MARK: - UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        let footLabel = label.footLabel
+        return footLabel
+    }
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return coreDataManager?.favorite.isEmpty ?? true ? 200 : 0
     }
 }
 

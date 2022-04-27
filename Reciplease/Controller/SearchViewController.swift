@@ -105,6 +105,7 @@ extension SearchViewController: NetworkServiceDelegate {
             tableViewModel.hits = result
             tableViewModel.nextPage = viewModel.nextPage
             tableViewModel.ingredients = viewModel.ingredientField.value
+            vc.searchResponse = true
             navigationController?.pushViewController(vc, animated: true)
         }
     }
