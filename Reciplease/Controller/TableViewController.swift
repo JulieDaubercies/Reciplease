@@ -12,10 +12,10 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
     // MARK: - Properties
 
     private var viewModel = ResultTableViewModel.shared
+    private var detailViewModel = DetailViewModel.shared
     private  var recipeService = RecipeService()
     private let customCellId = "CustomTableViewCell"
     private let loadingCellId = "LoadingCell"
-    private var isPaginating = false
     private var coreDataManager: CoreDataManager?
     var searchResponse: Bool!  // créer un protocol à la place
     
@@ -33,10 +33,6 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
         tableView.register(UINib.init(nibName: loadingCellId, bundle: nil), forCellReuseIdentifier: loadingCellId)
         viewModel.displayAlertDelegate = self
         viewModel.delegateNetwork = self
-        
-        viewModel.isPaginating.bind { scroll in
-            self.isPaginating = scroll
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +44,7 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
         if searchResponse == true {
             let offsetY = scrollView.contentOffset.y
             let contentHeight = scrollView.contentSize.height
-            if (offsetY > contentHeight - scrollView.frame.height) && isPaginating == false {
+            if (offsetY > contentHeight - scrollView.frame.height) && viewModel.isPaginating.value == false {
                 viewModel.fetchMoreData()
             }
         }
@@ -75,14 +71,12 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-
             if searchResponse == true {
                 return viewModel.hits.count
             } else {
                 guard let favoriteRecipeCount = coreDataManager?.favorite.count else { return 0 }
                 return favoriteRecipeCount
             }
-            
         } else if section == 1 {
             return 1
         } else {
@@ -95,19 +89,14 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: customCellId, for: indexPath) as! CustomTableViewCell
             cell.selectionStyle = .none
             cell.configure()
-            
-            
             if searchResponse == true {
                 cell.recipeInformations = viewModel.hits[indexPath.row].recipe
-                cell.configure()
                 return cell
             } else {
                 guard let data = coreDataManager?.favorite[indexPath.row] else { return cell }
                 cell.favoriteRecipeInformations = data
-                cell.configure()
                 return cell
             }
-            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellId, for: indexPath) as! LoadingCell
             cell.activityIndicator.startAnimating()
@@ -133,11 +122,21 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
         vc.recipeIndexPath = indexPath.row
+        
+        detailViewModel.recipeIndexPath = indexPath.row
+        
         if searchResponse == true {
             vc.recipeService = viewModel.hits
             vc.searchResponse = true
+            
+            detailViewModel.recipeService = viewModel.hits
+            detailViewModel.searchResponse = true
+            
         } else {
             vc.searchResponse = false
+            
+            detailViewModel.searchResponse = false
+            
         }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -155,17 +154,12 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
     }
 }
 
-// MARK: - extension new call management
+// MARK: - extension new call loading
 
 extension TableViewController: CallMoreData {
     
     func animate() {
-        UIView.transition(with: (self.tableView)!,
-                          duration: 0.40,
-                          options: .transitionCrossDissolve,
-                          animations: { () -> Void in
-            self.tableView.reloadData() },
-                          completion: nil)
+        UIView.transition(with: (self.tableView)!, duration: 0.40, options: .transitionCrossDissolve, animations: { () -> Void in self.tableView.reloadData() }, completion: nil)
     }
 }
 

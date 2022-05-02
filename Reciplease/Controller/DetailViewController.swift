@@ -11,6 +11,8 @@ class DetailViewController: UIViewController  {
     
     // MARK: - Properties
     
+    var viewModel = DetailViewModel.shared
+    
     var recipeIndexPath: Int?
     var searchResponse: Bool!
     var recipeService = [Hit]()
@@ -54,25 +56,11 @@ class DetailViewController: UIViewController  {
     }
     
     private func loadImage() {
-        guard let index = recipeIndexPath else { return }
-        if searchResponse {
-            if let imageToLoad =  recipeService[index].recipe.image.data {
-                recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
-            }
-        } else {
-            if let imageToLoad = coreDataManager?.favorite[index].image {
-                recipeImage.image  = UIImage(data: imageToLoad)?.circleMask
-            }
-        }
+        recipeImage.image = viewModel.loadImage()
     }
 
     private func loadTitle() {
-        guard let index = recipeIndexPath else { return }
-        if searchResponse {
-            title = recipeService[index].recipe.label
-        } else {
-            title = coreDataManager?.favorite[index].name
-        }
+        title = viewModel.loadTitle()
     }
 
     private func controlFavoriteStatus() {

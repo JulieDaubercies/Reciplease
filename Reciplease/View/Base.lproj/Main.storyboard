@@ -171,7 +171,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="AFb-dU-oRc">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="fgh-Bj-GLs" customClass="TabBarController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="fgh-Bj-GLs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ZmD-dx-BZK"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AuD-Nf-uVx">
@@ -365,6 +365,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UVJ-Hz-ck2"/>
+        <segue reference="CTl-MT-aac"/>
     </inferredMetricsTieBreakers>
 </document>

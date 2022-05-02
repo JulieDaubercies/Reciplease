@@ -8,12 +8,13 @@
 import Foundation
 
 protocol CallMoreData: AnyObject {
-
     func animate()
 }
 
 class ResultTableViewModel {
     
+    // MARK: - Properties
+
     static let shared = ResultTableViewModel()
     
     private  var recipeService = RecipeService()
@@ -23,6 +24,9 @@ class ResultTableViewModel {
     var hits = [Hit]()
     var displayAlertDelegate: DisplayAlert?
     var delegateNetwork: CallMoreData?
+    
+    // MARK: - Methods
+    
     
      func fetchMoreData() {
          if isPaginating.value == false {
