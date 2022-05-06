@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController  {
+class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -18,6 +18,9 @@ class DetailViewController: UIViewController  {
     var recipeService = [Hit]()
     private var isFavourited: Bool = true
     private var coreDataManager: CoreDataManager?
+    
+    var move: Bool!
+    
     @IBOutlet private var recipeImage: UIImageView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var getDirectionsButton: UIButton!
@@ -34,9 +37,17 @@ class DetailViewController: UIViewController  {
         getDirectionsButton.addShadow()
         tableView.dataSource = self
 
-        loadImage()
-        loadTitle()
+        recipeImage.image = viewModel.circleImage
+        title = viewModel.title
         controlFavoriteStatus()
+        
+        viewModel.moveView.bind { [weak self] change in
+            self?.move = change
+        }
+        
+        viewModel.isFavourited.bind { [weak self] favorite in
+            self?.updateFavoriteButton(isFavourite: favorite)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,29 +65,9 @@ class DetailViewController: UIViewController  {
             favoriteButton.setImage(.init(systemName: "star"), for: .normal)
         }
     }
-    
-    private func loadImage() {
-        recipeImage.image = viewModel.loadImage()
-    }
-
-    private func loadTitle() {
-        title = viewModel.loadTitle()
-    }
 
     private func controlFavoriteStatus() {
-        if !searchResponse {
-            updateFavoriteButton(isFavourite: true)
-            isFavourited = true
-        } else {
-            updateFavoriteButton(isFavourite: false)
-            isFavourited = false
-        }
-        if searchResponse {
-            if coreDataManager?.controlFavorite(recipe: title ?? "recette") == true {
-                updateFavoriteButton(isFavourite: true)
-                isFavourited = true
-            }
-        }
+        viewModel.controlFavoriteStatus()
         favoriteButton.tintColor = .yellow
     }
     
@@ -91,36 +82,31 @@ class DetailViewController: UIViewController  {
     }
 
     @IBAction private func favouriteButtonDidTap(_ sender: Any) {
-        if searchResponse && !isFavourited {
-            updateFavoriteButton(isFavourite: true)
-            guard let index = recipeIndexPath else { return }
-            coreDataManager?.createFavorite(recipe: recipeService[index].recipe)
-            isFavourited = true
-        } else  if searchResponse && isFavourited {
-            updateFavoriteButton(isFavourite: false)
-            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
-            isFavourited = false
-        } else  if !searchResponse && isFavourited {
-            updateFavoriteButton(isFavourite: false)
-            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
+//        if searchResponse && !isFavourited {
+//            updateFavoriteButton(isFavourite: true)
+//            guard let index = recipeIndexPath else { return }
+//            coreDataManager?.createFavorite(recipe: recipeService[index].recipe)
+//            isFavourited = true
+//        } else  if searchResponse && isFavourited {
+//            updateFavoriteButton(isFavourite: false)
+//            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
+//            isFavourited = false
+//        } else  if !searchResponse && isFavourited {
+//            updateFavoriteButton(isFavourite: false)
+//            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
+//            navigationController?.popViewController(animated: true)
+//            isFavourited = false
+//        }
+        
+        viewModel.favoriteChange()
+        if move {
             navigationController?.popViewController(animated: true)
-            isFavourited = false
-        }
+       }
     }
 
     /// Open website instructions on Safari
     @IBAction private func getDirectionsButton(_ sender: Any) {
-        var recipeUrl: String = ""
-        guard let index = recipeIndexPath else { return }
-        if searchResponse {
-            recipeUrl = recipeService[index].recipe.url
-        } else {
-            guard let url = coreDataManager?.favorite[index].url else { return }
-            recipeUrl = url
-        }
-        if let url = URL(string: recipeUrl) {
-            UIApplication.shared.open(url)
-        }
+        UIApplication.shared.open(viewModel.url!)
     }
 }
 

@@ -131,12 +131,10 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
             
             detailViewModel.recipeService = viewModel.hits
             detailViewModel.searchResponse = true
-            
         } else {
             vc.searchResponse = false
             
             detailViewModel.searchResponse = false
-            
         }
         navigationController?.pushViewController(vc, animated: true)
     }
