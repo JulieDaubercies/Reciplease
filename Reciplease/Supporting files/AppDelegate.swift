@@ -10,7 +10,7 @@ import CoreData
 
 //@main
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
     lazy var coreDataStack = CoreDataStack(modelName: "Reciplease")
@@ -33,8 +33,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UITabBar.appearance().scrollEdgeAppearance = tabBarApperance
                     UITabBar.appearance().standardAppearance = tabBarApperance
                 }
+        
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
+            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+            tabBarController.viewControllers?.append(vc)
+            
+        }
+        
+        
+        
         return true
     }
+    
+    
 
     // MARK: UISceneSession Lifecycle
 

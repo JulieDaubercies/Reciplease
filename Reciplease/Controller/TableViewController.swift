@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, UITabBarControllerDelegate {
+class TableViewController: UITableViewController {
 
     // MARK: - Properties
 
@@ -23,7 +23,8 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      //  self.tabBarController?.delegate = self
+            
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let coredataStack = appdelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
@@ -36,6 +37,11 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+       if tabBarController?.tabBar.selectedItem?.tag == 0 {
+            searchResponse = true
+        } else {
+            searchResponse = false
+        }
         tableView.reloadData()
     }
     
@@ -50,14 +56,16 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
         }
     }
     
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
-        if selectedIndex == 0 {
-            searchResponse = true
-        } else {
-            searchResponse = false
-        }
-    }
+    
+
+//     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
+//        if selectedIndex == 0 {
+//            searchResponse = true
+//        } else {
+//            searchResponse = false
+//        }
+//    }
 
     // MARK: - TableView data source
 
@@ -121,19 +129,11 @@ class TableViewController: UITableViewController, UITabBarControllerDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
-        vc.recipeIndexPath = indexPath.row
-        
         detailViewModel.recipeIndexPath = indexPath.row
-        
         if searchResponse == true {
-            vc.recipeService = viewModel.hits
-            vc.searchResponse = true
-            
             detailViewModel.recipeService = viewModel.hits
             detailViewModel.searchResponse = true
         } else {
-            vc.searchResponse = false
-            
             detailViewModel.searchResponse = false
         }
         navigationController?.pushViewController(vc, animated: true)

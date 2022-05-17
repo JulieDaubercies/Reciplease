@@ -12,15 +12,7 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
     
     var viewModel = DetailViewModel.shared
-    
-    var recipeIndexPath: Int?
-    var searchResponse: Bool!
-    var recipeService = [Hit]()
-    private var isFavourited: Bool = true
-    private var coreDataManager: CoreDataManager?
-    
     var move: Bool!
-    
     @IBOutlet private var recipeImage: UIImageView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var getDirectionsButton: UIButton!
@@ -30,23 +22,14 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let coredataStack = appdelegate.coreDataStack
-        coreDataManager = CoreDataManager(coreDataStack: coredataStack)
-        
         getDirectionsButton.addShadow()
         tableView.dataSource = self
-
         recipeImage.image = viewModel.circleImage
         title = viewModel.title
         controlFavoriteStatus()
         
         viewModel.moveView.bind { [weak self] change in
             self?.move = change
-        }
-        
-        viewModel.isFavourited.bind { [weak self] favorite in
-            self?.updateFavoriteButton(isFavourite: favorite)
         }
     }
     
@@ -56,7 +39,13 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let coreDataManager = coreDataManager else {
+        if tabBarController?.tabBar.selectedItem?.tag == 0 {
+            viewModel.searchResponse = true
+         } else {
+             viewModel.searchResponse = false
+         }
+        
+        guard let coreDataManager = viewModel.coreDataManager else {
             return
         }
         if coreDataManager.controlFavorite(recipe: title ?? "recette") {
@@ -64,8 +53,12 @@ class DetailViewController: UIViewController {
         } else {
             favoriteButton.setImage(.init(systemName: "star"), for: .normal)
         }
+        
+        viewModel.isFavourited.bind { [weak self] favorite in
+            self?.updateFavoriteButton(isFavourite: favorite)
+        }
     }
-
+    
     private func controlFavoriteStatus() {
         viewModel.controlFavoriteStatus()
         favoriteButton.tintColor = .yellow
@@ -80,28 +73,12 @@ class DetailViewController: UIViewController {
             favoriteButton.layer.add(animateStar(), forKey: nil)
         }
     }
-
+   
     @IBAction private func favouriteButtonDidTap(_ sender: Any) {
-//        if searchResponse && !isFavourited {
-//            updateFavoriteButton(isFavourite: true)
-//            guard let index = recipeIndexPath else { return }
-//            coreDataManager?.createFavorite(recipe: recipeService[index].recipe)
-//            isFavourited = true
-//        } else  if searchResponse && isFavourited {
-//            updateFavoriteButton(isFavourite: false)
-//            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
-//            isFavourited = false
-//        } else  if !searchResponse && isFavourited {
-//            updateFavoriteButton(isFavourite: false)
-//            coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
-//            navigationController?.popViewController(animated: true)
-//            isFavourited = false
-//        }
-        
         viewModel.favoriteChange()
         if move {
             navigationController?.popViewController(animated: true)
-       }
+        }
     }
 
     /// Open website instructions on Safari
@@ -115,24 +92,19 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let index = recipeIndexPath else { return 0 }
-        if searchResponse {
-            return recipeService[index].recipe.ingredients.count
-        } else {
-            guard let favoriteRecipeCount = coreDataManager?.favorite[index].ingredientsDetail?.count else { return 0 }
-            return favoriteRecipeCount
-        }
+        guard let number = viewModel.numberOfRows else { return 0 }
+        return number
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "List", for: indexPath)
-        guard let index = recipeIndexPath else { return cell }
-        if searchResponse {
-            cell.textLabel?.text = ". " + recipeService[index].recipe.ingredients[indexPath.row].text
+        if viewModel.searchResponse {
+            guard let listFavorite = viewModel.ingredientSearchListRecipe?[indexPath.row].text else { return cell }
+            cell.textLabel?.text = ". " + listFavorite
             return cell
         } else {
-            guard let favoriteIngredientsDetail = coreDataManager?.favorite[index].ingredientsDetail?[indexPath.row] else { return cell}
-            cell.textLabel?.text = ". " + favoriteIngredientsDetail
+            guard let listSearch = viewModel.ingredientListFavoriteRecipe?[indexPath.row] else { return cell }
+            cell.textLabel?.text = ". " + listSearch
             return cell
         }
     }

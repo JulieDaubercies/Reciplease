@@ -8,7 +8,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
+class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate  {
     
     // MARK: - Properties
     

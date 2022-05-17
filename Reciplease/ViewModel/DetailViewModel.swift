@@ -17,6 +17,9 @@ class DetailViewModel {
     var recipeIndexPath: Int?
     var searchResponse: Bool!
     var recipeService = [Hit]()
+    var isFavourited: Box<Bool> = Box(true)
+    var moveView: Box<Bool> = Box(false)
+    var coreDataManager: CoreDataManager?
     
     var circleImage: UIImage! {
         guard let index = recipeIndexPath else { return UIImage(named: "meal")! }
@@ -44,9 +47,6 @@ class DetailViewModel {
          return recipeTitle
     }
     
-    var isFavourited: Box<Bool> = Box(true)
-    private var coreDataManager: CoreDataManager?
-    
     var url: URL? {
         var recipeUrl: String = ""
         guard let index = recipeIndexPath else { return nil }
@@ -58,6 +58,32 @@ class DetailViewModel {
         }
         return URL(string: recipeUrl)
     }
+    
+    var numberOfRows: Int? {
+        guard let index = recipeIndexPath else { return 0 }
+        if searchResponse {
+            return recipeService[index].recipe.ingredients.count
+        } else {
+            guard let favoriteRecipeCount = coreDataManager?.favorite[index].ingredientsDetail?.count else { return 0 }
+            return favoriteRecipeCount
+        }
+    }
+    
+    var ingredientSearchListRecipe: [Ingredient]? {
+        guard let index = recipeIndexPath else { return nil }
+        var informations: [Ingredient]?
+        informations = recipeService[index].recipe.ingredients
+        return informations
+    }
+    
+    var ingredientListFavoriteRecipe: [String]? {
+        guard let index = recipeIndexPath else { return nil }
+        var informations: [String]?
+        informations = coreDataManager?.favorite[index].ingredientsDetail
+        return informations
+    }
+    
+    // MARK: - Init
     
     init() {
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -80,22 +106,17 @@ class DetailViewModel {
         }
     }
     
-    var moveView: Box<Bool> = Box(false)
-    
     func favoriteChange() {
         if searchResponse && !isFavourited.value {
-            print(1)
             guard let index = recipeIndexPath else { return }
             coreDataManager?.createFavorite(recipe: recipeService[index].recipe)
             moveView.value = false
             isFavourited.value = true
         } else  if searchResponse && isFavourited.value {
-            print(2)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             moveView.value = false
             isFavourited.value = false
         } else  if !searchResponse && isFavourited.value {
-            print(3)
             coreDataManager?.deleteOneFavorite(recipe: title ?? "recette")
             moveView.value = true
             isFavourited.value = false
