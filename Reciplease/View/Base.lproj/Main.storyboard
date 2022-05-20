@@ -44,7 +44,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDG-da-z05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3312" y="128"/>
+            <point key="canvasLocation" x="3195" y="84"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="0c1-FY-iW1">
@@ -142,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LJW-W1-c9L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4228" y="128"/>
+            <point key="canvasLocation" x="4274" y="84"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bTd-D5-iiK">
@@ -205,12 +205,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Lyg-md-Qwo" kind="relationship" relationship="rootViewController" id="UVJ-Hz-ck2"/>
+                        <segue destination="Lyg-md-Qwo" kind="relationship" relationship="rootViewController" id="I6p-4e-7zF"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yue-UA-vMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="260"/>
+            <point key="canvasLocation" x="1225" y="286"/>
         </scene>
         <!--Reciplease-->
         <scene sceneID="eIr-CL-gSL">
@@ -365,6 +365,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UVJ-Hz-ck2"/>
+        <segue reference="I6p-4e-7zF"/>
     </inferredMetricsTieBreakers>
 </document>

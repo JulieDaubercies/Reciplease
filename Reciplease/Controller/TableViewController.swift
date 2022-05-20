@@ -17,14 +17,12 @@ class TableViewController: UITableViewController {
     private let customCellId = "CustomTableViewCell"
     private let loadingCellId = "LoadingCell"
     private var coreDataManager: CoreDataManager?
-    var searchResponse: Bool!  // créer un protocol à la place
+    var searchResponse: Bool!  // créer un protocol à la place ??
     
     // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  self.tabBarController?.delegate = self
-            
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let coredataStack = appdelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
@@ -55,17 +53,6 @@ class TableViewController: UITableViewController {
             }
         }
     }
-    
-    
-
-//     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-//        let selectedIndex = tabBarController.viewControllers?.firstIndex(of: viewController)!
-//        if selectedIndex == 0 {
-//            searchResponse = true
-//        } else {
-//            searchResponse = false
-//        }
-//    }
 
     // MARK: - TableView data source
 
@@ -130,6 +117,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController else { return }
         detailViewModel.recipeIndexPath = indexPath.row
+        vc.recipeIndexPath = indexPath.row
         if searchResponse == true {
             detailViewModel.recipeService = viewModel.hits
             detailViewModel.searchResponse = true
