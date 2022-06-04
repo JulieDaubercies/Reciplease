@@ -13,9 +13,7 @@ class DetailViewController: UIViewController {
     
     var viewModel = DetailViewModel.shared
     var move: Bool!
-    
     var recipeIndexPath: Int?
-    
     @IBOutlet private var recipeImage: UIImageView!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var getDirectionsButton: UIButton!
@@ -29,7 +27,8 @@ class DetailViewController: UIViewController {
         tableView.dataSource = self
         recipeImage.image = viewModel.circleImage
         title = viewModel.title
-        controlFavoriteStatus()
+        viewModel.controlFavoriteStatus()
+        favoriteButton.tintColor = .yellow
         
         viewModel.moveView.bind { [weak self] change in
             self?.move = change
@@ -44,12 +43,12 @@ class DetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // ligne important pour que l'enregistrement du favori se fasse sur le bon index
         viewModel.recipeIndexPath = recipeIndexPath
-
+        
         if tabBarController?.tabBar.selectedItem?.tag == 0 {
             viewModel.searchResponse = true
-         } else {
-             viewModel.searchResponse = false
-         }
+        } else {
+            viewModel.searchResponse = false
+        }
         
         viewModel.isFavourited.bind { [weak self] favorite in
             self?.updateFavoriteButton(isFavourite: favorite)
@@ -61,13 +60,6 @@ class DetailViewController: UIViewController {
         } else {
             favoriteButton.setImage(.init(systemName: "star"), for: .normal)
         }
-        
-
-    }
-    
-    private func controlFavoriteStatus() {
-        viewModel.controlFavoriteStatus()
-        favoriteButton.tintColor = .yellow
     }
     
     private func updateFavoriteButton(isFavourite : Bool) {

@@ -657,6 +657,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACH_O_TYPE = mh_execute;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julieDaubercies.Reciplease;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -687,6 +688,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACH_O_TYPE = mh_execute;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julieDaubercies.Reciplease;
 				PRODUCT_NAME = "$(TARGET_NAME)";
