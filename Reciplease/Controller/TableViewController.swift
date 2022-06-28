@@ -131,8 +131,12 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
-        let footLabel = label.footLabel
-        return footLabel
+        if searchResponse == true {
+            return label
+        } else {
+            let footLabel = label.footLabel
+            return footLabel
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

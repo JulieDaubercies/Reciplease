@@ -19,6 +19,8 @@ protocol NetworkServiceDelegate: AnyObject {
 
 class SearchViewModel {
     
+    // MARK: - Properties
+        
     private var recipeService = RecipeService()
     var displayAlertDelegate: DisplayAlert?
     var delegateNetwork: NetworkServiceDelegate?
@@ -27,6 +29,8 @@ class SearchViewModel {
     var arrayOfIngredients: Box<[String]> = Box([])
     var nextPage: String!
     
+    // MARK: - Methods
+        
     func addIngredient(ingredient: String) {
         if !ingredient.isBlank {
             arrayOfIngredients.value.append(ingredient.prefix(1).uppercased() + ingredient.lowercased().dropFirst())
@@ -41,6 +45,7 @@ class SearchViewModel {
     func launchResearch() {
         guard !arrayOfIngredients.value.isEmpty else {
             displayAlertDelegate?.showAlert(message: "Merci d'ajouter des ingrédients pour lancer une recherche")
+            delegateNetwork?.stopAnimation()
             return
         }
         guard let url = URL(string: "https://api.edamam.com/api/recipes/v2?") else { return }
@@ -50,7 +55,6 @@ class SearchViewModel {
                 case .success(let recipe):
                     self?.hit = recipe.hits
                     self?.nextPage = recipe.links.next.href
-                    self?.ingredientField.value = self?.arrayOfIngredients.value.joined(separator: ",") ?? "tomato"
                     self?.delegateNetwork?.didCompleteRequest(result: self!.hit)
                     self?.delegateNetwork?.stopAnimation()
                 case .failure(let error):

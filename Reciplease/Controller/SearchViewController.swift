@@ -104,7 +104,7 @@ extension SearchViewController: NetworkServiceDelegate {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
             tableViewModel.hits = result
             tableViewModel.nextPage = viewModel.nextPage
-            tableViewModel.ingredients = viewModel.ingredientField.value
+            tableViewModel.ingredients = viewModel.arrayOfIngredients.value.joined(separator: ",")
             navigationController?.pushViewController(vc, animated: true)
         }
     }
