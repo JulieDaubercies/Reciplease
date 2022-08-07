@@ -61,7 +61,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Me-Kk-Bbd">
-                                <rect key="frame" x="50" y="737" width="290" height="38"/>
+                                <rect key="frame" x="50" y="688" width="290" height="38"/>
                                 <fontDescription key="fontDescription" name="Galvji" family="Galvji" pointSize="22"/>
                                 <state key="normal" title="Get directions">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,7 +71,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bTh-pq-ka8">
-                                <rect key="frame" x="20" y="390.66666666666674" width="350" height="296.33333333333326"/>
+                                <rect key="frame" x="20" y="390.66666666666669" width="350" height="247.33333333333331"/>
                                 <color key="backgroundColor" red="0.48950441919999998" green="0.4488782066" blue="0.40555510389999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="U1b-9O-4Wv">
                                     <rect key="frame" x="0.0" y="115" width="350" height="44"/>
@@ -365,6 +365,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="I6p-4e-7zF"/>
+        <segue reference="CTl-MT-aac"/>
     </inferredMetricsTieBreakers>
 </document>

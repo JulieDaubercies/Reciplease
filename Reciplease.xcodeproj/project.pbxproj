@@ -43,6 +43,9 @@
 		379746C0270C5143008A3713 /* MockCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379746BF270C5143008A3713 /* MockCoreDataStack.swift */; };
 		37EA6B572800692E00AD1130 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EA6B562800692E00AD1130 /* SearchViewModel.swift */; };
 		37EA6B5928006A2700AD1130 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EA6B5828006A2700AD1130 /* Box.swift */; };
+		37EAF45928A0065C006052C8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAF45828A0065C006052C8 /* Coordinator.swift */; };
+		37EAF45C28A00ADF006052C8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAF45B28A00ADF006052C8 /* MainCoordinator.swift */; };
+		37EAF45E28A00BD3006052C8 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EAF45D28A00BD3006052C8 /* Storyboarded.swift */; };
 		E50BA694BB2F40B9030CE60B /* Pods_RecipleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1DE3F8B01F9134D014DB960 /* Pods_RecipleaseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +96,9 @@
 		379746BF270C5143008A3713 /* MockCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataStack.swift; sourceTree = "<group>"; };
 		37EA6B562800692E00AD1130 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		37EA6B5828006A2700AD1130 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		37EAF45828A0065C006052C8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		37EAF45B28A00ADF006052C8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		37EAF45D28A00BD3006052C8 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		AC1911C1BFE945D5C16A4FDD /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		B17116C28B1E69AD6E851FBF /* Pods_Reciplease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reciplease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B804849636543ACD6548F434 /* Pods-RecipleaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipleaseTests.debug.xcconfig"; path = "Target Support Files/Pods-RecipleaseTests/Pods-RecipleaseTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 		3797463E27032900008A3713 /* Reciplease */ = {
 			isa = PBXGroup;
 			children = (
+				37EAF45A28A00ABF006052C8 /* Coordinator */,
 				3797465627032909008A3713 /* Controller */,
 				3797465027032901008A3713 /* Info.plist */,
 				3797465727032916008A3713 /* Model */,
@@ -252,6 +259,16 @@
 				373EA8D5281DCD8800B76702 /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		37EAF45A28A00ABF006052C8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				37EAF45828A0065C006052C8 /* Coordinator.swift */,
+				37EAF45B28A00ADF006052C8 /* MainCoordinator.swift */,
+				37EAF45D28A00BD3006052C8 /* Storyboarded.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		4CCBFBD92AB2F022A118B580 /* Pods */ = {
@@ -460,7 +477,9 @@
 				3797467E27032CBF008A3713 /* Extensions.swift in Sources */,
 				37EA6B572800692E00AD1130 /* SearchViewModel.swift in Sources */,
 				3797464427032900008A3713 /* SearchViewController.swift in Sources */,
+				37EAF45928A0065C006052C8 /* Coordinator.swift in Sources */,
 				3797468527032D1C008A3713 /* CoreDataStack.swift in Sources */,
+				37EAF45C28A00ADF006052C8 /* MainCoordinator.swift in Sources */,
 				379746B92708EA6F008A3713 /* LoadingCell.swift in Sources */,
 				3797467B27032C4A008A3713 /* CustomTableViewCell.swift in Sources */,
 				37EA6B5928006A2700AD1130 /* Box.swift in Sources */,
@@ -475,6 +494,7 @@
 				3797468027032CDA008A3713 /* RecipeService.swift in Sources */,
 				3797464227032900008A3713 /* SceneDelegate.swift in Sources */,
 				3797468227032CF0008A3713 /* Recipe.swift in Sources */,
+				37EAF45E28A00BD3006052C8 /* Storyboarded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, Storyboarded {
 
     // MARK: - Properties
 
@@ -18,6 +18,8 @@ class TableViewController: UITableViewController {
     private let loadingCellId = "LoadingCell"
     private var coreDataManager: CoreDataManager?
     var searchResponse: Bool!  // créer un protocol à la place ??
+    
+    weak var coordinator: MainCoordinator?
     
     // MARK: - Methods
     

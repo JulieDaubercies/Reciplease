@@ -8,7 +8,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate  {
+class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, Storyboarded  {
     
     // MARK: - Properties
     
@@ -22,6 +22,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate, UINavigationC
     let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
     
     var tableViewModel = ResultTableViewModel.shared
+    
+    weak var coordinator: MainCoordinator?
     
     // MARK: - Methods
         
@@ -95,18 +97,31 @@ extension SearchViewController: UITableViewDataSource {
         cell.textLabel?.text = ". " + viewModel.arrayOfIngredients.value[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.arrayOfIngredients.value.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
 }
 
 // MARK: - extension networkCall management
 
 extension SearchViewController: NetworkServiceDelegate {
     func didCompleteRequest(result: [Hit]) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
+      //  if let vc = storyboard?.instantiateViewController(withIdentifier: "TableView") as? TableViewController {
             tableViewModel.hits = result
             tableViewModel.nextPage = viewModel.nextPage
             tableViewModel.ingredients = viewModel.arrayOfIngredients.value.joined(separator: ",")
-            navigationController?.pushViewController(vc, animated: true)
-        }
+      //      navigationController?.pushViewController(vc, animated: true)
+      //  }
+        coordinator?.LaunchSearch()
     }
     
     func stopAnimation() {
