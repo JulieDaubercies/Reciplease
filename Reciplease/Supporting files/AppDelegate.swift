@@ -8,8 +8,8 @@
 import UIKit
 import CoreData
 
-//@main
-@UIApplicationMain
+@main
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
@@ -17,17 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var mainCoordinator: MainCoordinator?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-   
+        
         let navController = UINavigationController()
         mainCoordinator = MainCoordinator(navigationController: navController)
         mainCoordinator?.startCoordinator()
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
         
         if #available(iOS 15, *) {
-            
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.configureWithOpaqueBackground()
             navigationBarAppearance.titleTextAttributes = [
@@ -45,14 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             UITabBar.appearance().standardAppearance = tabBarApperance
         }
         
-        if let tabBarController = window?.rootViewController as? UITabBarController {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "NavController")
-            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-            tabBarController.viewControllers?.append(vc)
-
-        }
-        
         return true
     }
     
@@ -65,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 //        // Use this method to select a configuration to create the new scene with.
 //        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
 //    }
-
+//
 //    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 //        // Called when the user discards a scene session.
 //        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.

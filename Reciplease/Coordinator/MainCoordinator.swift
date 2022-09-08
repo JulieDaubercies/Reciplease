@@ -10,24 +10,23 @@ import UIKit
 
 class MainCoordinator: Coordinator {
     
-    var navigationController : UINavigationController
+    var childCoordinators = [Coordinator]()
+    
+    var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func startCoordinator() {
-        
         let initialViewController = SearchViewController.instantiate()
-        navigationController.navigationBar.prefersLargeTitles = true
+        initialViewController.coordinator = self
         navigationController.pushViewController(initialViewController, animated: false)
     }
     
     func LaunchSearch() {
-       
         let vc = TableViewController.instantiate()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
-    
 }

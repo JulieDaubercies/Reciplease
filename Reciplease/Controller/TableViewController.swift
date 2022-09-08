@@ -43,6 +43,7 @@ class TableViewController: UITableViewController, Storyboarded {
             searchResponse = false
         }
         tableView.reloadData()
+        print(searchResponse)
     }
     
     // A faire attention par rapport aux mises à jour d'Apple (ancienne méthode)
